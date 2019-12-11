@@ -1,17 +1,16 @@
+#include "functions.hpp"
 #include "opencv2/opencv.hpp"
 #include <cmath>
 #include <eigen3/Eigen/Dense>
 #include <stdlib.h>
-#include "functions.hpp"
-
 
 extern const int HEIGHT = 480;
 extern const int WIDTH = 848;
 
-extern const float m_cx=424.901367187;
-extern const float m_cy=244.221023559;
-extern const float m_fx=428.787170410;
-extern const float m_fy=428.787170410;
+extern const float m_cx = 424.901367187;
+extern const float m_cy = 244.221023559;
+extern const float m_fx = 428.787170410;
+extern const float m_fy = 428.787170410;
 
 using namespace std;
 using namespace cv;
@@ -31,6 +30,7 @@ bool in_picture(Coord t) {
   }
 }
 
+
 Mat fill_picture(Mat img, int diff) {
   Mat result(HEIGHT, WIDTH, CV_8UC3, Scalar(0, 0, 0));
   // int start_points[5*8][2];
@@ -43,58 +43,80 @@ Mat fill_picture(Mat img, int diff) {
       if (z_val == 0 || z_val > 3000) {
         continue;
       }
-      start_points[num_points].z = z_val;
+      start_points[num_points].z = z_val / 1000.0;
+      cout << start_points[num_points].z << endl;
       start_points[num_points].x = j * 100 + 75;
       start_points[num_points].y = i * 95 + 50;
       num_points++;
     }
   }
-  int *vectors = (int *)calloc(num_points * num_points, sizeof(int));
-  int z_diff, dist;
-  for (int i = 0; i < num_points; i++) {
-    for (int j = 0; j < num_points; j++) {
-      if (i == j) {
-        continue;
-      }
-      z_diff = start_points[i].z - start_points[j].z;
-      dist = (int)pow(start_points[i].x - start_points[j].x, 2);
-      dist += (int)pow(start_points[i].y - start_points[j].y, 2);
-      dist = (int)sqrt(dist);
-      vectors[i * num_points + j] = z_diff / dist;
-    }
-  }
-  double avg_slope[num_points];
-  double suma = 0;
-  double suma_sumy = 0;
-  for (int i = 0; i < num_points; i++) {
-    for (int j = 0; j < num_points; j++) {
-      suma += vectors[i * num_points + j];
-    }
-    avg_slope[i] = suma / (float)(num_points - 1);
-    suma_sumy += avg_slope[i];
-    suma = 0;
-    cout << avg_slope[i] << endl;
-  }
-  suma_sumy = suma_sumy / (float)(num_points - 1);
-  cout << suma_sumy << endl;
-  int new_num_points = 0;
-  for (int i = 0; i < num_points; i++) {
-    cout << "vec value " << avg_slope[i] << "sum_value " << suma_sumy << endl;
-    if (avg_slope[i] < suma_sumy - 0.9) {
-      continue;
-    }
-    start_points[new_num_points] = start_points[i];
-    new_num_points++;
-  }
-  num_points = new_num_points;
+  Normal f_norm = find_normal(start_points, num_points);
+  float dis;
+  int points_in = 0;
+  for(int i = 0; i < num_points; i++){
+   dis = -(f_norm.vec(0)*(start_points[i].x - m_cx)/m_fx + 
+           f_norm.vec(1)*(start_points[i].y - m_cy)/m_fy +
+           f_norm.vec(2))*start_points[i].z + f_norm.offset;
+   cout << "distance from plane is:  " << dis << endl;
+   if(dis > 0){continue;}
+   else{start_points[points_in] = start_points[i];
+        points_in++; 
+   }
+  } 
+    num_points = points_in;
+  //int *vectors = (int *)calloc(num_points * num_points, sizeof(int));
+  //int z_diff, dist;
+  //for (int i = 0; i < num_points; i++) {
+    //for (int j = 0; j < num_points; j++) {
+      //if (i == j) {
+        //continue;
+      //}
+      //z_diff = start_points[i].z*1000 - start_points[j].z*1000;
+      //dist = (int)pow(start_points[i].x - start_points[j].x, 2);
+      //dist += (int)pow(start_points[i].y - start_points[j].y, 2);
+      //dist = (int)sqrt(dist);
+      //vectors[i * num_points + j] = z_diff / dist;
+    //}
+  //}
+  //double avg_slope[num_points];
+  //double suma = 0;
+  //double suma_sumy = 0;
+  //for (int i = 0; i < num_points; i++) {
+    //for (int j = 0; j < num_points; j++) {
+      //suma += vectors[i * num_points + j];
+    //}
+    //avg_slope[i] = suma / (float)(num_points - 1);
+    //suma_sumy += avg_slope[i];
+    //suma = 0;
+    //cout << avg_slope[i] << endl;
+  //}
+  //suma_sumy = suma_sumy / (float)(num_points - 1);
+  //float variance = 0;
+  //cout << suma_sumy << endl;
+  //int new_num_points = 0;
+  //for(int i =0; i < num_points; i++){
+      //variance += pow((avg_slope[i]-suma_sumy), 2);
+  //}
+  //variance = variance / (num_points -1);
+  //variance = pow(variance, 0.5);
+    //cout << "variance: " << variance << endl;
+  //for (int i = 0; i < num_points; i++) {
+    //cout << "vec value " << avg_slope[i] << "sum_value " << suma_sumy << endl;
+    //if (avg_slope[i] < suma_sumy - 0.9) {
+      //continue;
+    //}
+    //start_points[new_num_points] = start_points[i];
+    //new_num_points++;
+  //}
+  //num_points = new_num_points;
   Stack stack(10000);
   int n_pl = 60000;
   int index = 0;
   Img_point *in_plane = (Img_point *)malloc(n_pl * sizeof(Img_point));
   for (int i = 0; i < num_points; i++) {
     stack.push(start_points[i].x, start_points[i].y);
-    int pop_val = start_points[i].z;
-    // cout << " POP value : " << pop_val << endl;
+    int pop_val = (int)(start_points[i].z * 1000);
+     //cout << " POP value : " << pop_val << endl;
     if (index + 10 >= n_pl) {
       n_pl += 20000;
       in_plane = (Img_point *)realloc(in_plane, n_pl * sizeof(Img_point));
@@ -104,7 +126,7 @@ Mat fill_picture(Mat img, int diff) {
     }
     in_plane[index].x = start_points[i].x;
     in_plane[index].y = start_points[i].y;
-    in_plane[index].z = start_points[i].z / 1000;
+    in_plane[index].z = start_points[i].z;
     index++;
     while (!stack.is_empty()) {
       if (index + 10 >= n_pl) {
@@ -149,33 +171,38 @@ void expand(Mat &result, Mat &img, int diff, Stack *stack, int pop_val,
         stack->push(t.x, t.y);
         in_plane[*index].x = t.x;
         in_plane[*index].y = t.y;
-        in_plane[*index].z = z_tmp/1000;
+        in_plane[*index].z = (float)z_tmp / 1000.0;
         (*index)++;
-
-        // cout << "xcoord" << t.x << "ycoord " << t.y << "v: " <<
-        // img.at<uint16_t>(t.y, t.x) << "ref " << pop_val << endl;
       }
     }
   }
 }
 
-Normal find_normal(Img_point* in_plane, int num_points) {
+Normal find_normal(Img_point *in_plane, int num_points) {
+    FILE *fd = fopen("points.mat", "w");
+    fprintf(fd, "data = [");
+    for(int i = 0; i < num_points; i++){
+        fprintf(fd, "%f, %f, %f;\n" ,((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z);
+    }
+    fprintf(fd, "];");
+    fclose(fd);
   Eigen::MatrixXf plane(3, num_points);
-  for(int i = 0; i < num_points; i++){
-    plane.col(i) << ((in_plane[i].x - m_cx) * in_plane[i].z/m_fx), ((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z; 
+  for (int i = 0; i < num_points; i++) {
+    plane.col(i) << ((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),
+        ((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z;
   }
-  Eigen::Matrix<float, 3,1> mean = plane.rowwise().mean();
+  Eigen::Matrix<float, 3, 1> mean = plane.rowwise().mean();
   Eigen::Matrix3Xf linear = plane.colwise() - mean;
   int settings = Eigen::ComputeFullU;
   Eigen::JacobiSVD<Eigen::Matrix3Xf> svd = linear.jacobiSvd(settings);
   Eigen::Vector3f normal = svd.matrixU().col(2);
-  float c_plane = normal(0)*mean(0) + normal(1)*mean(1) + normal(2)*mean(2);
-  if(c_plane < 0){normal = -normal;
-  c_plane = normal(0)*mean(0) + normal(1)*mean(1) + normal(2)*mean(2);
+  float c_plane =
+      normal(0) * mean(0) + normal(1) * mean(1) + normal(2) * mean(2);
+  if (c_plane < 0) {
+    normal = -normal;
+    c_plane = normal(0) * mean(0) + normal(1) * mean(1) + normal(2) * mean(2);
   }
-  cout << "nromal vector: " << normal << "offset const: " << c_plane << endl;
-  //normal = normal * 1000;
-  //c_plane = c_plane * 1000;
+  cout << "nromal vector: " << normal << endl << "offset const: " << c_plane << endl;
   Normal n;
   n.vec = normal;
   n.offset = c_plane;

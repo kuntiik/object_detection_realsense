@@ -24,7 +24,8 @@ void dispplay_height(Mat& img, Normal n);
 void my_mouse_callback(int event, int x, int y, int flags, void *param);
 
 void my_mouse_callback(int event, int x, int y, int flags, void *param){
-  uint8_t *image = (uint8_t*)param;
+  //uint8_t *image = (uint8_t*)param;
+  int *image = (int*)param;
   switch( event ){
     case EVENT_LBUTTONDOWN: {
       cout << (int)image[y*WIDTH+x] << endl;
@@ -39,8 +40,9 @@ void dispplay_height(Mat& img, Normal n){
   long sum = 0;
   double big = 0;
   double tmp_h;
+  int raw[HEIGHT*WIDTH];
   //offset correction, to compensate for outliners
-      n.offset *= 1.3;
+      //n.offset *= 1.35;
   for(int i = 0; i < HEIGHT; i++){
     for(int j = 0; j < WIDTH; j++){
       tmp_h =(double)img.at<uint16_t>(i,j)/1000;
@@ -49,20 +51,15 @@ void dispplay_height(Mat& img, Normal n){
         continue;
       }
       t = -((n.vec(0)*(j-m_cx))/m_fx + (n.vec(1) * (i - m_cy))/m_fy + n.vec(2))*tmp_h + n.offset;
-      //t = t/n.vec(2);
-      //p = ((n.vec(0)*(j-m_cx))/m_fx + (n.vec(1) * (i - m_cy))/m_fy)*tmp_h +  - n.offset;
-      //p2 = n.vec(2)*img.at<uint16_t>(i,j)/1000;
-      //if((i+j)%1000 == 0){
-      //cout << "plane_value: " << p << "height_val " << p2 << endl;
-      //}
       t = t*250;
+      raw[i*WIDTH + j] = (int)t;
       sum += t;
       if(t > big){big = t;};
       if(t >= 255){t = 255;}
-      if(t <= 0){t = 0;}
       if(t >= 25 && t <=75){t = 50;}
       else if (t > 75 && t <= 125){t = 100;}
       else if(t > 125){t = 150;}
+      else{t = 0;}
       ha[i][j] = (uint8_t)t;
     }
   }
@@ -70,8 +67,8 @@ void dispplay_height(Mat& img, Normal n){
   cout << "average: " << sum << "MAX: " << big << endl;
   Mat height(HEIGHT, WIDTH, CV_8U, ha);
   imshow("height", height);
-  setMouseCallback("height", my_mouse_callback, (void*)&ha);
-  waitKey(0);
+  setMouseCallback("height", my_mouse_callback, (void*)&raw);
+  //waitKey(0);
   }
 int main(int argc, char **argv) {
   Mat image;
