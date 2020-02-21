@@ -44,7 +44,6 @@ Mat fill_picture(Mat img, int diff) {
         continue;
       }
       start_points[num_points].z = z_val / 1000.0;
-      cout << start_points[num_points].z << endl;
       start_points[num_points].x = j * 100 + 75;
       start_points[num_points].y = i * 95 + 50;
       num_points++;
@@ -57,58 +56,12 @@ Mat fill_picture(Mat img, int diff) {
    dis = -(f_norm.vec(0)*(start_points[i].x - m_cx)/m_fx + 
            f_norm.vec(1)*(start_points[i].y - m_cy)/m_fy +
            f_norm.vec(2))*start_points[i].z + f_norm.offset;
-   cout << "distance from plane is:  " << dis << endl;
    if(dis > 0){continue;}
    else{start_points[points_in] = start_points[i];
         points_in++; 
    }
   } 
     num_points = points_in;
-  //int *vectors = (int *)calloc(num_points * num_points, sizeof(int));
-  //int z_diff, dist;
-  //for (int i = 0; i < num_points; i++) {
-    //for (int j = 0; j < num_points; j++) {
-      //if (i == j) {
-        //continue;
-      //}
-      //z_diff = start_points[i].z*1000 - start_points[j].z*1000;
-      //dist = (int)pow(start_points[i].x - start_points[j].x, 2);
-      //dist += (int)pow(start_points[i].y - start_points[j].y, 2);
-      //dist = (int)sqrt(dist);
-      //vectors[i * num_points + j] = z_diff / dist;
-    //}
-  //}
-  //double avg_slope[num_points];
-  //double suma = 0;
-  //double suma_sumy = 0;
-  //for (int i = 0; i < num_points; i++) {
-    //for (int j = 0; j < num_points; j++) {
-      //suma += vectors[i * num_points + j];
-    //}
-    //avg_slope[i] = suma / (float)(num_points - 1);
-    //suma_sumy += avg_slope[i];
-    //suma = 0;
-    //cout << avg_slope[i] << endl;
-  //}
-  //suma_sumy = suma_sumy / (float)(num_points - 1);
-  //float variance = 0;
-  //cout << suma_sumy << endl;
-  //int new_num_points = 0;
-  //for(int i =0; i < num_points; i++){
-      //variance += pow((avg_slope[i]-suma_sumy), 2);
-  //}
-  //variance = variance / (num_points -1);
-  //variance = pow(variance, 0.5);
-    //cout << "variance: " << variance << endl;
-  //for (int i = 0; i < num_points; i++) {
-    //cout << "vec value " << avg_slope[i] << "sum_value " << suma_sumy << endl;
-    //if (avg_slope[i] < suma_sumy - 0.9) {
-      //continue;
-    //}
-    //start_points[new_num_points] = start_points[i];
-    //new_num_points++;
-  //}
-  //num_points = new_num_points;
   Stack stack(10000);
   int n_pl = 60000;
   int index = 0;
@@ -116,7 +69,6 @@ Mat fill_picture(Mat img, int diff) {
   for (int i = 0; i < num_points; i++) {
     stack.push(start_points[i].x, start_points[i].y);
     int pop_val = (int)(start_points[i].z * 1000);
-     //cout << " POP value : " << pop_val << endl;
     if (index + 10 >= n_pl) {
       n_pl += 20000;
       in_plane = (Img_point *)realloc(in_plane, n_pl * sizeof(Img_point));
@@ -179,13 +131,13 @@ void expand(Mat &result, Mat &img, int diff, Stack *stack, int pop_val,
 }
 
 Normal find_normal(Img_point *in_plane, int num_points) {
-    FILE *fd = fopen("points.mat", "w");
-    fprintf(fd, "data = [");
-    for(int i = 0; i < num_points; i++){
-        fprintf(fd, "%f, %f, %f;\n" ,((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z);
-    }
-    fprintf(fd, "];");
-    fclose(fd);
+    //FILE *fd = fopen("points.mat", "w");
+    //fprintf(fd, "data = [");
+    //for(int i = 0; i < num_points; i++){
+        //fprintf(fd, "%f, %f, %f;\n" ,((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z);
+    //}
+    //fprintf(fd, "];");
+    //fclose(fd);
   Eigen::MatrixXf plane(3, num_points);
   for (int i = 0; i < num_points; i++) {
     plane.col(i) << ((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),
@@ -207,4 +159,21 @@ Normal find_normal(Img_point *in_plane, int num_points) {
   n.vec = normal;
   n.offset = c_plane;
   return n;
+}
+
+Centered_vec find_normal_2d(Coord *plane, int num_points){
+    Eigen::MatrixXf points(2, num_points);
+    for(int i =0; i < num_points; i++){
+        points.col(i) << plane[i].x,plane[i].y;
+    }
+        Eigen::Matrix<float, 2, 1>average = points.rowwise().mean();
+        Eigen::Matrix2Xf centered = points.colwise() - average;
+        //TODO change settings
+        int settings = Eigen::ComputeFullU;
+        Eigen::JacobiSVD<Eigen::Matrix2Xf> svd = centered.jacobiSvd(settings);
+        Centered_vec c_vec;
+        c_vec.vec = svd.matrixU().col(1);
+        Coord center = {.x = (int)average( 0,0 ), .y = (int)average( 1,0 )};
+        c_vec.center = center;
+        return c_vec;
 }
