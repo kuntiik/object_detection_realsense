@@ -24,7 +24,7 @@ void dispplay_height(Mat &img, Normal n);
 
 void my_mouse_callback(int event, int x, int y, int flags, void *param);
 
-Point3i get_brick_depth(Mat img, Coord center){
+Point3f get_brick_depth(Mat img, Coord center){
     int elements = 11*11;
     int sum = 0;
     int brick_size_x = 300;
@@ -41,8 +41,8 @@ Point3i get_brick_depth(Mat img, Coord center){
     //TODO maybe float division? will see....
     //ok s i am just returning center point in 3D .....
     sum = sum/elements;
-    int real_brick_size_x = (center.x-m_cx)/m_fx*sum;
-    int real_brick_size_y = (center.y -m_cy)/m_fy*sum;
+    float real_brick_size_x = (center.x-m_cx)/m_fx*sum;
+    float real_brick_size_y = (center.y -m_cy)/m_fy*sum;
     Point3i brick(real_brick_size_x, real_brick_size_y, sum); 
 
     return brick;
@@ -114,7 +114,7 @@ void dispplay_height(Mat &img, Normal n) {
   cout << "calling find blocks" << endl;
   Blocks blocks = find_blocks(height);
   Centered_vec c_vec;
-  Point3i brick_s;
+  Point3f brick_s;
           int calc_x, calc_y;
           float step = 30.0;
   for(int i =0; i< blocks.size; i++){
@@ -141,14 +141,16 @@ void dispplay_height(Mat &img, Normal n) {
           //TODO just to test bounding box (delete later)
           if(c_vec.center.x == 323){
           brick_s = get_brick_depth(img, c_vec.center);
+          printf("bod ve 3d je x: %f y: %f z: %f \n", brick_s.x, brick_s.y, brick_s.z);
           Vec2i xy_3d(brick_s.x, brick_s.y);
           Vec2f normala(c_vec.vec(1), -1*c_vec.vec(0));
-          int offset_3d = (int)xy_3d.dot(normala); 
+          float offset_3d = (float)xy_3d.dot(normala); 
+          printf("nrmalovy vektor smeru kostky je x: %f y: %f c: %f \n", normala(0), normala(1), offset_3d);
           float first_point = solve_equation(normala, offset_3d, 30); 
           float second_point = -(normala(0)*first_point + offset_3d)/normala(1);
 
           Point2i corner((int)((first_point/brick_s.z*m_fx)+m_cx), (int)((second_point*m_fy/brick_s.z)+m_cy));
-          height.at<uint8_t>(corner.y,corner.x) = 255;
+          //height.at<uint8_t>(corner.y,corner.x) = 255;
           
              
       }
