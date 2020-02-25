@@ -1,5 +1,6 @@
 #include "functions/functions.hpp"
 #include "functions/make_groups.hpp"
+#include "functions/bounding_box.hpp"
 #include "opencv2/opencv.hpp"
 #include <opencv2/core/eigen.hpp>
 #include <cmath>
@@ -27,27 +28,6 @@ void my_mouse_callback(int event, int x, int y, int flags, void *param);
 Point3f convert_pt_to_3D(Mat img, Coord center) ;
 tuple<Point2f, Point2f> solve_equation(Vec2f vec, float c, float l, Point3i p) ;
 
-Point3f convert_pt_to_3D(Mat img, Coord center) {
-  int elements = 11 * 11;
-  int sum = 0;
-  for (int i = -5; i <= 5; i++) {
-    for (int j = -5; j <= 5; j++) {
-      if (center.y + i > HEIGHT || center.y + i < 0 || center.x + j > WIDTH ||
-          center.y + j < 0) {
-        elements--;
-        continue;
-      }
-      sum += (int)img.at<uint16_t>(center.y + i, center.x + j);
-    }
-  }
-  // ok s i am just returning center point in 3D .....
-  sum = sum / elements;
-  float real_brick_size_x = (center.x - m_cx) / m_fx * sum;
-  float real_brick_size_y = (center.y - m_cy) / m_fy * sum;
-  Point3f brick(real_brick_size_x, real_brick_size_y, sum);
-
-  return brick;
-}
 
 void my_mouse_callback(int event, int x, int y, int flags, void *param) {
   // uint8_t *image = (uint8_t*)param;
@@ -59,71 +39,7 @@ void my_mouse_callback(int event, int x, int y, int flags, void *param) {
   }
   }
 }
-tuple<Point2f, Point2f> solve_equation(Vec2f vec, float c, float l, Point3i p) {
-  double a = vec(0);
-  double b = vec(1);
-  double x0 = (double)p.x;
-  double y0 = (double)p.y;
-  double y1, y2, x1, x2;
-  double tmp, pt1, pt2, pt3, pt4, pt5, pt6, h1, h2;
-  printf("parameter check a: %f b: %f c: %f x0: %f y0: %f l: %f \n", a, b, c,
-         x0, y0, l);
 
-  // TODO pomocny printy (cast vypoctu - proc toto nezavisi na l)
-  //y1 = (b * c + pow(a, 2) * y0 +
-        //a * pow((pow(a, 2) * pow(l, 2) - pow(a, 2) * pow(x0, 2) -
-                 //2 * a * b * x0 * y0 + 2 * a * c * x0 + pow(b, 2) * pow(l, 2) -
-                 //pow(b, 2) * pow(y0, 2) + 2 * b * c * y0 - pow(c, 2)),
-                //0.5) -
-        //a * b * x0) /
-       //(pow(a, 2) + pow(b, 2));
-  
- y1 = (b*c + pow(a,2)*y0 + a*sqrt(pow(a,2)*pow(l,2) - pow(a,2)*pow(x0,2) - 2*a*b*x0*y0 + 2*a*c*x0 + pow(b,2)*pow(l,2) - pow(b,2)*pow(y0,2) + 2*b*c*y0 - pow(c,2)) - a*b*x0)/(pow(a,2) + pow(b,2));
-
-  y2 = (b * c + pow(a, 2) * y0 -
-        a * pow(pow(a, 2) * pow(l, 2) - pow(a, 2) * pow(x0, 2) -
-                    2 * a * b * x0 * y0 + 2 * a * c * x0 +
-                    pow(b, 2) * pow(l, 2) - pow(b, 2) * pow(y0, 2) +
-                    2 * b * c * y0 - pow(c, 2),
-                0.5) -
-        a * b * x0) /
-       (pow(a, 2) + pow(b, 2));
-  x1 = (c - b * y1) / a;
-  x2 = (c - b * y2) / a;
-
-  return make_tuple(Point2f((float)x1, (float)y1),
-                    Point2f((float)x2, (float)y2));
-}
-
-tuple<Point3f, Point3f> solve_equation_3d(Vec3f plane_norm, Vec2f brick_norm, Point3f pnt, float l){
-    float a = brick_norm(0);
-    float b = brick_norm(1);
-    float p = plane_norm(0);
-    float m = plane_norm(1);
-    float n = plane_norm(2);
-    
-    float x0 = pnt.x;
-    float y0 = pnt.y;
-    float z0 = pnt.z; 
-
-    float c = brick_norm(0) * pnt.x + brick_norm(1) * pnt.y;
-    float k = plane_norm(0) * pnt.x + plane_norm(1) * pnt.y + plane_norm(2)*pnt.z;
-
-    float x1, x2, y1, y2, z1, z2;
-
- x1 = (b*n*(a*m*sqrt(- pow(a,2)*pow(k,2) + 2*pow(a,2)*k*m*y0 + 2*pow(a,2)*k*n*z0 + pow(a,2)*pow(l,2)*pow(m,2) + pow(a,2)*pow(l,2)*pow(n,2) - pow(a,2)*pow(m,2)*pow(x0,2) - pow(a,2)*pow(m,2)*pow(y0,2) - 2*pow(a,2)*m*n*y0*z0 - pow(a,2)*pow(n,2)*pow(x0,2) - pow(a,2)*pow(n,2)*pow(z0,2) - 2*a*b*k*m*x0 - 2*a*b*k*p*y0 - 2*a*b*pow(l,2)*m*p + 2*a*b*m*n*x0*z0 + 2*a*b*m*p*pow(x0,2) + 2*a*b*m*p*pow(y0,2) - 2*a*b*pow(n,2)*x0*y0 + 2*a*b*n*p*y0*z0 + 2*a*c*k*p + 2*a*c*pow(m,2)*x0 - 2*a*c*m*p*y0 + 2*a*c*pow(n,2)*x0 - 2*a*c*n*p*z0 - pow(b,2)*pow(k,2) + 2*pow(b,2)*k*n*z0 + 2*pow(b,2)*k*p*x0 + pow(b,2)*pow(l,2)*pow(n,2) + pow(b,2)*pow(l,2)*pow(p,2) - pow(b,2)*pow(n,2)*pow(y0,2) - pow(b,2)*pow(n,2)*pow(z0,2) - 2*pow(b,2)*n*p*x0*z0 - pow(b,2)*pow(p,2)*pow(x0,2) - pow(b,2)*pow(p,2)*pow(y0,2) + 2*b*c*k*m - 2*b*c*m*n*z0 - 2*b*c*m*p*x0 + 2*b*c*pow(n,2)*y0 + 2*b*c*pow(p,2)*y0 - pow(c,2)*pow(m,2) - pow(c,2)*pow(n,2) - pow(c,2)*pow(p,2)) - b*p*sqrt(- pow(a,2)*pow(k,2) + 2*pow(a,2)*k*m*y0 + 2*pow(a,2)*k*n*z0 + pow(a,2)*pow(l,2)*pow(m,2) + pow(a,2)*pow(l,2)*pow(n,2) - pow(a,2)*pow(m,2)*pow(x0,2) - pow(a,2)*pow(m,2)*pow(y0,2) - 2*pow(a,2)*m*n*y0*z0 - pow(a,2)*pow(n,2)*pow(x0,2) - pow(a,2)*pow(n,2)*pow(z0,2) - 2*a*b*k*m*x0 - 2*a*b*k*p*y0 - 2*a*b*pow(l,2)*m*p + 2*a*b*m*n*x0*z0 + 2*a*b*m*p*pow(x0,2) + 2*a*b*m*p*pow(y0,2) - 2*a*b*pow(n,2)*x0*y0 + 2*a*b*n*p*y0*z0 + 2*a*c*k*p + 2*a*c*pow(m,2)*x0 - 2*a*c*m*p*y0 + 2*a*c*pow(n,2)*x0 - 2*a*c*n*p*z0 - pow(b,2)*pow(k,2) + 2*pow(b,2)*k*n*z0 + 2*pow(b,2)*k*p*x0 + pow(b,2)*pow(l,2)*pow(n,2) + pow(b,2)*pow(l,2)*pow(p,2) - pow(b,2)*pow(n,2)*pow(y0,2) - pow(b,2)*pow(n,2)*pow(z0,2) - 2*pow(b,2)*n*p*x0*z0 - pow(b,2)*pow(p,2)*pow(x0,2) - pow(b,2)*pow(p,2)*pow(y0,2) + 2*b*c*k*m - 2*b*c*m*n*z0 - 2*b*c*m*p*x0 + 2*b*c*pow(n,2)*y0 + 2*b*c*pow(p,2)*y0 - pow(c,2)*pow(m,2) - pow(c,2)*pow(n,2) - pow(c,2)*pow(p,2)) + pow(a,2)*pow(m,2)*z0 + pow(b,2)*pow(p,2)*z0 + pow(a,2)*k*n + pow(b,2)*k*n - a*c*n*p - pow(a,2)*m*n*y0 - pow(b,2)*n*p*x0 - b*c*m*n + a*b*m*n*x0 - 2*a*b*m*p*z0 + a*b*n*p*y0))/((a*m - b*p)*(pow(a,2)*pow(m,2) + pow(a,2)*pow(n,2) - 2*a*b*m*p + pow(b,2)*pow(n,2) + pow(b,2)*pow(p,2))) - (b*k - c*m)/(a*m - b*p);
-
-
- x2 = (b*n*(b*p*sqrt(- pow(a,2)*pow(k,2) + 2*pow(a,2)*k*m*y0 + 2*pow(a,2)*k*n*z0 + pow(a,2)*pow(l,2)*pow(m,2) + pow(a,2)*pow(l,2)*pow(n,2) - pow(a,2)*pow(m,2)*pow(x0,2) - pow(a,2)*pow(m,2)*pow(y0,2) - 2*pow(a,2)*m*n*y0*z0 - pow(a,2)*pow(n,2)*pow(x0,2) - pow(a,2)*pow(n,2)*pow(z0,2) - 2*a*b*k*m*x0 - 2*a*b*k*p*y0 - 2*a*b*pow(l,2)*m*p + 2*a*b*m*n*x0*z0 + 2*a*b*m*p*pow(x0,2) + 2*a*b*m*p*pow(y0,2) - 2*a*b*pow(n,2)*x0*y0 + 2*a*b*n*p*y0*z0 + 2*a*c*k*p + 2*a*c*pow(m,2)*x0 - 2*a*c*m*p*y0 + 2*a*c*pow(n,2)*x0 - 2*a*c*n*p*z0 - pow(b,2)*pow(k,2) + 2*pow(b,2)*k*n*z0 + 2*pow(b,2)*k*p*x0 + pow(b,2)*pow(l,2)*pow(n,2) + pow(b,2)*pow(l,2)*pow(p,2) - pow(b,2)*pow(n,2)*pow(y0,2) - pow(b,2)*pow(n,2)*pow(z0,2) - 2*pow(b,2)*n*p*x0*z0 - pow(b,2)*pow(p,2)*pow(x0,2) - pow(b,2)*pow(p,2)*pow(y0,2) + 2*b*c*k*m - 2*b*c*m*n*z0 - 2*b*c*m*p*x0 + 2*b*c*pow(n,2)*y0 + 2*b*c*pow(p,2)*y0 - pow(c,2)*pow(m,2) - pow(c,2)*pow(n,2) - pow(c,2)*pow(p,2)) - a*m*sqrt(- pow(a,2)*pow(k,2) + 2*pow(a,2)*k*m*y0 + 2*pow(a,2)*k*n*z0 + pow(a,2)*pow(l,2)*pow(m,2) + pow(a,2)*pow(l,2)*pow(n,2) - pow(a,2)*pow(m,2)*pow(x0,2) - pow(a,2)*pow(m,2)*pow(y0,2) - 2*pow(a,2)*m*n*y0*z0 - pow(a,2)*pow(n,2)*pow(x0,2) - pow(a,2)*pow(n,2)*pow(z0,2) - 2*a*b*k*m*x0 - 2*a*b*k*p*y0 - 2*a*b*pow(l,2)*m*p + 2*a*b*m*n*x0*z0 + 2*a*b*m*p*pow(x0,2) + 2*a*b*m*p*pow(y0,2) - 2*a*b*pow(n,2)*x0*y0 + 2*a*b*n*p*y0*z0 + 2*a*c*k*p + 2*a*c*pow(m,2)*x0 - 2*a*c*m*p*y0 + 2*a*c*pow(n,2)*x0 - 2*a*c*n*p*z0 - pow(b,2)*pow(k,2) + 2*pow(b,2)*k*n*z0 + 2*pow(b,2)*k*p*x0 + pow(b,2)*pow(l,2)*pow(n,2) + pow(b,2)*pow(l,2)*pow(p,2) - pow(b,2)*pow(n,2)*pow(y0,2) - pow(b,2)*pow(n,2)*pow(z0,2) - 2*pow(b,2)*n*p*x0*z0 - pow(b,2)*pow(p,2)*pow(x0,2) - pow(b,2)*pow(p,2)*pow(y0,2) + 2*b*c*k*m - 2*b*c*m*n*z0 - 2*b*c*m*p*x0 + 2*b*c*pow(n,2)*y0 + 2*b*c*pow(p,2)*y0 - pow(c,2)*pow(m,2) - pow(c,2)*pow(n,2) - pow(c,2)*pow(p,2)) + pow(a,2)*pow(m,2)*z0 + pow(b,2)*pow(p,2)*z0 + pow(a,2)*k*n + pow(b,2)*k*n - a*c*n*p - pow(a,2)*m*n*y0 - pow(b,2)*n*p*x0 - b*c*m*n + a*b*m*n*x0 - 2*a*b*m*p*z0 + a*b*n*p*y0))/((a*m - b*p)*(pow(a,2)*pow(m,2) + pow(a,2)*pow(n,2) - 2*a*b*m*p + pow(b,2)*pow(n,2) + pow(b,2)*pow(p,2))) - (b*k - c*m)/(a*m - b*p);
-
-y1 = (c - a*x1)/b;
-y2 = (c - a*x2)/b;
-
-z1 = -(m*y1 - k + p*x1)/n;
-z2 = -(m*y2 - k + p*x2)/n;
-
-return make_tuple(Point3f(x1,y1,z1), Point3f(x2,y2,z2));
-}
 
 void dispplay_height(Mat &img, Normal n) {
   uint8_t ha[HEIGHT][WIDTH];
@@ -203,7 +119,8 @@ void dispplay_height(Mat &img, Normal n) {
 
       // TODO just to test bounding box (delete later)
       if (c_vec.center.x == 323) {
-        brick_s = convert_pt_to_3D(img, c_vec.center);
+        Point2i cntr(c_vec.center.x, c_vec.center.y);
+        brick_s = convert_pt_to_3D(img, cntr);
         printf("bod ve 3d je x: %f y: %f z: %f \n", brick_s.x, brick_s.y,
                brick_s.z);
         Vec2f xy_3d((float)brick_s.x, (float)brick_s.y);
