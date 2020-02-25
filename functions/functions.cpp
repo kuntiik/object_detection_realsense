@@ -173,6 +173,7 @@ Centered_vec find_normal_2d(Coord *plane, int num_points){
         Eigen::JacobiSVD<Eigen::Matrix2Xf> svd = centered.jacobiSvd(settings);
         Centered_vec c_vec;
         c_vec.vec = svd.matrixU().col(1);
+        cout << "vektor z svd rozkladu je: " << c_vec.vec << "pro bod x" << c_vec.center.x << "y :" << c_vec.center.y << endl;
         Coord center = {.x = (int)average( 0,0 ), .y = (int)average( 1,0 )};
         c_vec.center = center;
         return c_vec;
