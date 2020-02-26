@@ -12,6 +12,24 @@ extern const float m_cy;
 extern const float m_fx;
 extern const float m_fy;
 
+const float B_WIDTH = 200;
+
+Point3f* get_rectangle_corners(Vec3f plane_norm, Vec2f brick_norm, Point3f pnt, float l){
+    Point3f p1,p2,p3,p4;
+    Point3f tmp1, tmp2;
+    Vec2f brick_vec(brick_norm(1), -brick_norm(0));
+    tie(tmp1, tmp2) = solve_equation_3d(plane_norm, brick_norm, pnt, l);
+    tie(p1, p2) = solve_equation_3d(plane_norm, brick_vec, tmp1, l);
+    tie(p3,p4) = solve_equation_3d( plane_norm, brick_vec, tmp2, l );
+    
+
+    Point3f *corners = (Point3f*)malloc(sizeof(Point3f)*4); 
+    
+    return corners;
+}
+
+void im
+
 Point3f convert_pt_to_3D(Mat img, Point2i center) {
   int elements = 11 * 11;
   int sum = 0;

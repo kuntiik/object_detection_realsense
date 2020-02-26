@@ -50,7 +50,6 @@ void dispplay_height(Mat &img, Normal n) {
   double tmp_h;
   int raw[HEIGHT * WIDTH];
 
-
   // offset correction, to compensate for outliners
   // n.offset *= 1.35;
   for (int i = 0; i < HEIGHT; i++) {
