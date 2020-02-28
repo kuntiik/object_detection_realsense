@@ -22,15 +22,52 @@ Point3f* get_rectangle_corners(Vec3f plane_norm, Vec2f brick_norm, Point3f pnt, 
     tie(p1, p2) = solve_equation_3d(plane_norm, brick_vec, tmp1, l);
     tie(p3,p4) = solve_equation_3d( plane_norm, brick_vec, tmp2, l );
     
-
-    Point3f *corners = (Point3f*)malloc(sizeof(Point3f)*4); 
+    //Point3f *corners = (Point3f*)malloc(sizeof(Point3f)*4); 
+    //order is important (need to sort them to form rectangle)
+    Point3f *corners{ new Point3f[4]{p1,p2,p4,p3} };
     
     return corners;
 }
 
-void im
+void draw_boundin_box(Mat& img, Point3f *corners){
+  cvtColor(img, img, CV_GRAY2BGR); 
 
-Point3f convert_pt_to_3D(Mat img, Point2i center) {
+
+} 
+
+Point2i *get_points_in_image(Point3f p1, Point3f p2){
+  Point2i im_p1(p1.x/p1.z*m_fx + m_cx, p1.y/p1.z*m_fy + m_cy);
+  Point2i im_p2(p2.x/p2.z*m_fx + m_cx, p2.y/p2.z*m_fy + m_cy);
+  int points;
+
+  if(in_picture(im_p1) && in_picture(im_p2)){
+    Point2i *ret{ new Point2i[2]{im_p1, im_p2} };
+  }
+  else if(in_picture(im_p1) || in_picture(im_p2)){
+    Vec2i normal(im_p1.y - im_p2.y, -(im_p1.x - im_p2.x));
+    int offset = im_p1.x * normal(0) + im_p1.y * normal(1);
+    if(normal(1) != 0){
+     //x = (c+b*x)/a ; y = (c+a*y)/b
+    }  
+  }
+  else{
+
+  }
+
+
+}
+
+bool in_picture(Point2i t) {
+  if (t.x < 0 || t.x >= WIDTH) {
+    return false;
+  } else if (t.y < 0 || t.y >= HEIGHT) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+Point3f convert_pt_to_3D(Mat& img, Point2i center) {
   int elements = 11 * 11;
   int sum = 0;
   for (int i = -5; i <= 5; i++) {
