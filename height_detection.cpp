@@ -25,7 +25,6 @@ extern Vec3b blue;
 void dispplay_height(Mat &img, Normal n);
 
 void my_mouse_callback(int event, int x, int y, int flags, void *param);
-Point3f convert_pt_to_3D(Mat img, Coord center) ;
 tuple<Point2f, Point2f> solve_equation(Vec2f vec, float c, float l, Point3i p) ;
 
 
@@ -96,70 +95,18 @@ void dispplay_height(Mat &img, Normal n) {
   for (int i = 0; i < blocks.size; i++) {
     if (blocks.group_index[i] > 1000) {
 
+        
       // TODO remake to return normal vector
       c_vec = find_normal_2d(blocks.groups[i], blocks.group_index[i]);
       height.at<uint8_t>(c_vec.center.y, c_vec.center.x) = 255;
-      calc_x = c_vec.center.x + (int)step;
-      calc_y =
-          c_vec.center.y - (int)(step / (float)c_vec.vec(1) * c_vec.vec(0));
-      if (calc_x > WIDTH || calc_x < 0 || calc_y > HEIGHT || calc_y < 0) {
-        continue;
-      }
-      Point2i s(calc_x, calc_y);
-
-      calc_x = c_vec.center.x - (int)step;
-      calc_y =
-          c_vec.center.y + (int)(step / (float)c_vec.vec(1) * c_vec.vec(0));
-      if (calc_x > WIDTH || calc_x < 0 || calc_y > HEIGHT || calc_y < 0) {
-        continue;
-      }
-      Point2i f(calc_x, calc_y);
-      line(height, s, f, 255);
-
-      // TODO just to test bounding box (delete later)
-      if (c_vec.center.x == 323) {
-        Point2i cntr(c_vec.center.x, c_vec.center.y);
-        brick_s = convert_pt_to_3D(img, cntr);
-        printf("bod ve 3d je x: %f y: %f z: %f \n", brick_s.x, brick_s.y,
-               brick_s.z);
-        Vec2f xy_3d((float)brick_s.x, (float)brick_s.y);
-        //Vec2f normala(c_vec.vec(1), -1 * c_vec.vec(0));
-        Vec2f normala(c_vec.vec(0), c_vec.vec(1));
-        float offset_3d = (xy_3d.t() * normala)(0);
-        printf("nrmalovy vektor smeru kostky je x: %f y: %f c: %f \n",
-               normala(0), normala(1), offset_3d);
-        Point2f first_point, second_point;
-        float brick_length = 300;
-        tie(first_point, second_point) =
-            solve_equation(normala, offset_3d, brick_length, brick_s);
-        printf("first point of rect is x: %f y: %f \n", first_point.x,
-               first_point.y);
-        printf("first point of rect is x: %f y: %f \n", second_point.x,
-               second_point.y);
-
-        Point2i rect_main_d((int)(m_cx + first_point.x * m_fx / brick_s.z),
-                            (int)(m_cy + first_point.y * m_fy / brick_s.z));
-        Point2i rect_main_d2((int)(m_cx + second_point.x * m_fx / brick_s.z),
-                             (int)(m_cy + second_point.y * m_fy / brick_s.z));
-
-        Point3f bod1, bod2;
         Vec3f norm_cv;
+        Vec2f brick_norm;
         eigen2cv(n.vec, norm_cv);
-
-        tie(bod1, bod2) = solve_equation_3d(norm_cv, normala, brick_s, brick_length);
-        cout << rect_main_d.x << "  " << rect_main_d.y << endl;
-
-        Point2i p3d((int)(m_cx + bod1.x * m_fx / bod1.z),
-                            (int)(m_cy + bod1.y * m_fy / bod1.z));
-        Point2i p3d2((int)(m_cx + bod2.x * m_fx / bod2.z),
-                             (int)(m_cy + bod2.y * m_fy / bod2.z));
-        printf("3d vysledky jsou bod 1:\n x: %i y:%i \n", p3d.x, p3d.y );
-
-        height.at<uint8_t>(rect_main_d.y, rect_main_d.x) = 255;
-        height.at<uint8_t>(rect_main_d2.y, rect_main_d2.x) = 255;
-        height.at<uint8_t>(p3d.y, p3d.x) = 255;
-        height.at<uint8_t>(p3d2.y, p3d2.x) = 255;
-      }
+        eigen2cv(c_vec.vec, brick_norm);
+        
+        Point2i center(c_vec.center.x, c_vec.center.y);
+        Point3f center_3d = convert_pt_to_3D(img, center);
+        bounding_box(height,norm_cv, brick_norm, center_3d , 300.0);
     }
   }
 
