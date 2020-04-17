@@ -1,0 +1,17 @@
+clear all;
+syms x y z x0 y0 z0 a b c d p m n k l; 
+
+%symbolic equations
+eq1 = a*x + b*y  + c*z - d == 0;
+eq2 = p*x + m*y +n*z -k == 0;
+eq3 = (x - x0)^2 + (y - y0)^2 +(z - z0)^2 == l^2;
+
+% eq1 = brick_n(1)*x + brick_n(2)*y - offs == 0;
+% eq2 = sqrt((x -p(1))^2 + (y - p(2))^2) == 300;
+%x_axis = linspace(-440, -330);
+%y_axis = double(subs(sol, x, x_axis));
+% 
+
+%solve with respect to y
+sol = solve([eq1,eq2],[x,y]);
+sol_3d = solve([eq1,eq2_2, eq3],[x,y,z]);

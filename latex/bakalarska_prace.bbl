@@ -1,0 +1,39 @@
+\begin{thebibliography}{1}
+
+\bibitem{Realsense_obrazek}
+{\em The Intel® RealSense™ Depth Camera D435}.
+
+\bibitem{washingtion_steropic}
+Stereo and 3d vision.
+
+\bibitem{RealSense_datasheet}
+{\em Intel® RealSense™ D400 Series Product Family}, 2019.
+
+\bibitem{james_w_angle_2014}
+Walker James~W.
+\newblock Angle {Between} {Vectors}, nov 2014.
+
+\bibitem{keselman2017intel}
+Leonid Keselman, John Iselin~Woodfill, Anders Grunnet-Jepsen, and Achintya
+  Bhowmik.
+\newblock Intel realsense stereoscopic depth cameras.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition Workshops}, pages 1--10, 2017.
+
+\bibitem{kuhl2005comparison}
+Annika Kuhl.
+\newblock Comparison of stereo matching algorithms for mobile robots.
+\newblock {\em The University of Western Australia Faculty of Engineering,
+  Computing and Mathematics}, 2005.
+
+\bibitem{RodriguesRotationFormula}
+Serge Weisstein Eric~W., Belonie.
+\newblock Rodrigues' rotation formula.
+\newblock Visited on 8/04/20.
+
+\bibitem{Werner2020}
+Tomáš Werner.
+\newblock {\em Optimalizace}.
+\newblock České vysoké učení technické, 11.2.2020 edition, 2020.
+
+\end{thebibliography}

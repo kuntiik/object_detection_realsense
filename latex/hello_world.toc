@@ -1,0 +1,23 @@
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\contentsline {paragraph}{Kl\'i\v cov\'a\ slova:}{iv}{paragraph*.1}
+\contentsline {paragraph}{Vedouc\IeC {\'\i }:}{iv}{paragraph*.2}
+\babel@toc {english}{}
+\contentsline {paragraph}{Keywords:}{iv}{paragraph*.3}
+\contentsline {paragraph}{Title\ translation:}{iv}{paragraph*.4}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {english}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\contentsline {section}{\numberline {0.1}Pou\IeC {\v z}it\IeC {\'y} hardware}{1}{section.0.1}
+\contentsline {chapter}{Literatura}{3}{chapter*.5}

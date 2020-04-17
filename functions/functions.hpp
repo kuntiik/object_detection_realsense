@@ -71,8 +71,9 @@ public:
 void expand(Mat &result, Mat &img, int diff, Stack *stack, int pop_val,
             int *index, Img_point *in_plane);
 bool in_picture(Coord t);
-void dispplay_height(Mat& img, Normal n);
-Mat fill_picture(Mat img, int diff);
+Mat dispplay_height(Mat& img, Normal n);
+//Mat fill_picture(Mat img, int diff);
+tuple<Mat,Normal>  get_plane_normal(Mat img, int diff) ;
 Normal find_normal(Img_point* in_plane, int num_points);
 Centered_vec find_normal_2d(Coord *plane, int num_points);
 #endif

@@ -61,6 +61,7 @@ while i < len(eq):
         i -= idx_minus
     i += 1 
 
+print("converted string to c++ language is below:")
 print(eq)
 
                    

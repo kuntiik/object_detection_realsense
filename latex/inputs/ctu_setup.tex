@@ -1,0 +1,72 @@
+
+\ctusetup{
+	preprint = \ctuverlog,
+%	mainlanguage = english,
+    titlelanguage = czech,
+	mainlanguage = czech,
+	otherlanguages = {slovak,english},
+	title-czech = {Detekce objektů z hloubkové kamery},
+	title-english = {Object Detection from Depth camera},
+	%subtitle-czech = {Cesta do tajů kdovíčeho},
+	subtitle-english = {Journey to the who-knows-what wondeland},
+	doctype = B,
+	faculty = F3,
+	department-czech = {Katedra kybernetiky},
+	department-english = {Department of Cybernetics},
+	author = {Lukáš Kunt},
+	supervisor = {Dr. Petr Štěpán},
+	supervisor-address = {Ústav X, \\ Uliční 5, \\ Praha 99},
+	%supervisor-specialist = {John Doe},
+	fieldofstudy-english = {Mathematical Engineering},
+	subfieldofstudy-english = {Mathematical Modelling},
+	%fieldofstudy-czech = {Matematcké inženýrství},
+	subfieldofstudy-czech = {Kybernetika a robotika},
+	keywords-czech = {slovo, klíč},
+	keywords-english = {word, key},
+	day = 11,
+	month = 5,
+	year = 2020,
+	%specification-file = {ctutest-zadani.pdf},
+%	front-specification = true,
+%	front-list-of-figures = false,
+%	front-list-of-tables = false,
+%	monochrome = true,
+%	layout-short = true,
+}
+
+\ctuprocess
+
+\addto\ctucaptionsczech{%
+	\def\supervisorname{Vedoucí}%
+	\def\subfieldofstudyname{Studijní program}%
+}
+
+\ctutemplateset{maketitle twocolumn default}{
+	\begin{twocolumnfrontmatterpage}
+		\ctutemplate{twocolumn.thanks}
+		\ctutemplate{twocolumn.declaration}
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
+		\ctutemplate{twocolumn.tableofcontents}
+		\ctutemplate{twocolumn.listoffigures}
+	\end{twocolumnfrontmatterpage}
+}
+
+% Theorem declarations, this is the reasonable default, anybody can do what they wish.
+% If you prefer theorems in italics rather than slanted, use \theoremstyle{plainit}
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}[chapter]
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+%\newtheorem{conjecture}[theorem]{Conjecture}
+
+%\theoremstyle{note}
+%\newtheorem*{remark*}{Remark}
+%\newtheorem{remark}[theorem]{Remark}
+
+%\setlength{\parskip}{5ex plus 0.2ex minus 0.2ex}

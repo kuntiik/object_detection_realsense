@@ -28,6 +28,7 @@ void draw_boundin_box(Mat &img, Point3f *corners) ;
 void bounding_box(Mat& img, Vec3f plane_norm, Vec2f brick_norm, Point3f pnt, float l);
 bool valid_point(Point2i p1,Point2i p2,int x,int y);
 
+tuple<Point3f, Point3f> line_sphere_intesection(Vec3f i, Vec3f j, Point3f g, float l);
 
 int min(int a, int b, int c);
 int max(int a, int b, int c);

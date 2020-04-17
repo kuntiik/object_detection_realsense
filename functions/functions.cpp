@@ -31,15 +31,17 @@ bool in_picture(Coord t) {
 }
 
 
-Mat fill_picture(Mat img, int diff) {
+tuple<Mat,Normal>  get_plane_normal(Mat img, int diff) {
   Mat result(HEIGHT, WIDTH, CV_8UC3, Scalar(0, 0, 0));
-  // int start_points[5*8][2];
+  //grid of points, using PCA guess plane normal (remove some points),
+  //floodfill from those points (recieve points in plane)
   Img_point start_points[5 * 8];
   int num_points = 0;
   int z_val;
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 8; j++) {
       z_val = (int)img.at<uint16_t>(i * 95 + 50, j * 100 + 75);
+      //skip points further than 3 meters
       if (z_val == 0 || z_val > 3000) {
         continue;
       }
@@ -56,12 +58,13 @@ Mat fill_picture(Mat img, int diff) {
    dis = -(f_norm.vec(0)*(start_points[i].x - m_cx)/m_fx + 
            f_norm.vec(1)*(start_points[i].y - m_cy)/m_fy +
            f_norm.vec(2))*start_points[i].z + f_norm.offset;
+   //if point in grid lies above plane, remove him from floodfill
    if(dis > 0){continue;}
    else{start_points[points_in] = start_points[i];
         points_in++; 
    }
   } 
-    num_points = points_in;
+  num_points = points_in;
   Stack stack(10000);
   int n_pl = 60000;
   int index = 0;
@@ -91,6 +94,16 @@ Mat fill_picture(Mat img, int diff) {
       expand(result, img, diff, &stack, pop_val, &index, in_plane);
     }
   }
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 8; j++) {
+    for (int l = -2; l < 3; l++) {
+      for (int k = -2; k < 3; k++) {
+        result.at<Vec3b>(i*95+50+l, j*100 + 75+ k) = blue;
+      //z_val = (int)img.at<uint16_t>(i * 95 + 50, j * 100 + 75);
+    }
+  }
+    }
+    }
   for (int i = 0; i < num_points; i++) {
     for (int j = -2; j < 3; j++) {
       for (int k = -2; k < 3; k++) {
@@ -99,8 +112,9 @@ Mat fill_picture(Mat img, int diff) {
     }
   }
   Normal normal = find_normal(in_plane, index);
-  dispplay_height(img, normal);
-  return result;
+
+  //dispplay_height(img, normal);
+  return make_tuple(result, normal);
 }
 
 void expand(Mat &result, Mat &img, int diff, Stack *stack, int pop_val,
