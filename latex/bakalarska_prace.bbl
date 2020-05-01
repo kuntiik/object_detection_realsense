@@ -21,6 +21,13 @@ Myron~Z Brown, Darius Burschka, and Gregory~D Hager.
 \newblock {\em IEEE transactions on pattern analysis and machine intelligence},
   25(8):993--1008, 2003.
 
+\bibitem{convex_hull_review}
+R.~V. {Chadnov} and A.~V. {Skvortsov}.
+\newblock Convex hull algorithms review.
+\newblock In {\em Proceedings. The 8th Russian-Korean International Symposium
+  on Science and Technology, 2004. KORUS 2004.}, volume~2, pages 112--115 vol.
+  2, 2004.
+
 \bibitem{chan1996optimal}
 Timothy~M Chan.
 \newblock Optimal output-sensitive convex hull algorithms in two and three
@@ -67,12 +74,24 @@ Kevin Lai, Liefeng Bo, Xiaofeng Ren, and Dieter Fox.
 \newblock In {\em 2011 IEEE international conference on robotics and
   automation}, pages 1817--1824. IEEE, 2011.
 
+\bibitem{convex_hull_formalizing}
+David Pichardie and Yves Bertot.
+\newblock Formalizing convex hull algorithms.
+\newblock In {\em International Conference on Theorem Proving in Higher Order
+  Logics}, pages 346--361. Springer, 2001.
+
 \bibitem{rusu2009close}
 Radu~Bogdan Rusu, Nico Blodow, Zoltan~Csaba Marton, and Michael Beetz.
 \newblock Close-range scene segmentation and reconstruction of 3d point cloud
   maps for mobile manipulation in domestic environments.
 \newblock In {\em 2009 IEEE/RSJ International Conference on Intelligent Robots
   and Systems}, pages 1--6. IEEE, 2009.
+
+\bibitem{toussaint1984complexity}
+Godfried~T Toussaint.
+\newblock Complexity, convexity, and unimodality.
+\newblock {\em International journal of computer \& information sciences},
+  13(3):197--217, 1984.
 
 \bibitem{trevor2013efficient}
 Alexander~JB Trevor, Suat Gedikli, Radu~B Rusu, and Henrik~I Christensen.

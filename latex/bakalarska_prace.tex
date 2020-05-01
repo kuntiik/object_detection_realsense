@@ -8,11 +8,19 @@
 \usepackage{algorithm,algorithmic}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage[colorinlistoftodos,prependcaption]{todonotes} %textsize = tiny option
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[dvipsnames]{xcolor}  % Coloured text etc.
 %\usepackage[unicode]{hyperref}
 \newcommand{\spc}[2]{$\mathbb{#1}^{#2}$}
 \newcommand{\minsp}[3]{$\mathbb{#1} \in \mathbb{#2}^{#3}$}
 \newcommand{\tl}[1]{$\mathbf{#1}$}
+\newcommand{\tli}[2]{$\mathbf{#1}_{#2}$}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
 \input{inputs/ctu_setup.tex}
 \begin{document}
@@ -22,67 +30,105 @@
 %\chapter{Teoretická část}
 \chapter{Matematický aparát}
 \section{Homogenní souřadnice}
-Během celé práce budu pracovat jak s kartéskými, tak i s homogenními souřadnicemi. Tyto jsou v Euklidovském prostoru dimenze $n$ reprezentovány pomocí vektoru, který má $n+1$ prvků. Je-li $\boldsymbol{r}$ bod v trojdimenzionálním Euklidovském prostoru $\mathbb{E}^3$ reprezentován parametry $x,y,z$, pak pro převod mezi kartézskými a homogenními souřadnice platí následující vztahy.
+Během celé práce budu pracovat jak s kartézskými, tak i s homogenními souřadnicemi. Ty jsou v Euklidovském prostoru dimenze $n$ reprezentovány pomocí vektoru, který má $n+1$ prvků. Je-li $\boldsymbol{r}$ bod v trojdimenzionálním Euklidovském prostoru $\mathbb{E}^3$ reprezentován parametry $x,y,z$, pak pro převod mezi kartézskými a homogenními souřadnicemi platí následující vztahy.
 \begin{align}
     \mathbf{r} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} &\rightarrow \mathbf{r}_{hom} = \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} \\
     \mathbf{r}_{hom} = \begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} &\rightarrow \mathbf{r} = \begin{bmatrix} \sfrac{x}{w} \\ \sfrac{y}{w} \\ \sfrac{z}{w} \end{bmatrix}
 \end{align}
-Pomocích homogenních souřadnic můžeme sestavit transformační matici \tl{A} , takto se skládá z matice rotace \tl{R} a vektoru translace \tl{t}.
+Pomocích homogenních souřadnic můžeme sestavit transformační matici \tl{A} , tato se skládá z matice rotace \tl{R} a vektoru translace \tl{t}.
 \begin{align}
     \mathbf{A} = \begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0} & 1 \end{bmatrix}
 \end{align}
 
 \section{Rotace a rotační matice}
-Natočení souřadného systému, popřípadě objektu s tímto svázaným vhledem k jinému systému v prostoru dimenze $n$ se nejjednodušeji popíše pomocí rotační matice \tl{R} $\in$ \spc{R}{n}. Mezi nejběžnější rotační matice patří rotace o úhel $\theta$ kolem os kartézského souřadného systému v \spc{E}{3}. Tyto vypadají následovně.
+Natočení souřadného systému, popřípadě objektu s tímto svázaným vhledem k jinému systému v prostoru dimenze $n$ se nejjednodušeji popíše pomocí rotační matice \tl{R} $\in$ \spc{R}{n}. Mezi nejběžnější rotační matice patří rotace o úhel $\theta$ kolem os kartézského souřadného systému v \spc{E}{3}. Tyto matice vypadají následovně.
 \begin{align}
     \mathbf{R_x}=\begin{bmatrix} \cos \theta & -\sin \theta & 0 \\ \sin \theta & \cos \theta & 0 \\ 0 & 0 & 1 \end{bmatrix} \\
     \mathbf{R_y}=\begin{bmatrix} \cos \theta & -\sin \theta & 0 \\ \sin \theta & \cos \theta & 0 \\ 0 & 0 & 1 \end{bmatrix} \\
     \mathbf{R_z}=\begin{bmatrix} \cos \theta & -\sin \theta & 0 \\ \sin \theta & \cos \theta & 0 \\ 0 & 0 & 1 \end{bmatrix}
 \end{align}
-Obecné natočení pak můžeme dostat složením 3 a více těchto rotací \footnote{Na pořadí zde záleží, není možné dostat libovolnou rotační matici, pokud budou dvě po sobě doucí rotace probíhat kolem stejné osy}
+Obecné natočení pak můžeme dostat složením 3 a více těchto rotací \footnote{Na pořadí zde záleží. Není možné dostat libovolnou rotační matici, pokud budou dvě po sobě doucí rotace probíhat kolem stejné osy}
 Pro vytvoření matice rotace \tl{R} v prostoru \spc{R}{3} kolem obecné osy dané normalizovaným vektorem \tl{u} o úhel $\theta$ slouží Rodriguesův vzorec \cite{RodriguesRotationFormula}.
 \begin{align}
     \mathbf{R} = \mathbf{I} + \tilde{\mathbf{u}}\sin \theta + \tilde{\mathbf{u}}^2(1 - \cos \theta); \quad \tilde{\mathbf{u}} = \begin{bmatrix} 0 & -u_{z} & u_{y} \\ u_z & 0 & -u_x \\ -u_y & u_x & 0 \end{bmatrix}
     \label{Rodriguez}
 \end{align}
-Chceme-li natočit vektor \tl{a} tak, aby byl rovnoběžný s vektorem \tl{b} použijeme vzorec \ref{Rodriguez}, úhel rotace $\theta$ a vektor \tl{v} kolem kterého rotace proběhne se určí následovně.
+Chceme-li natočit vektor \tl{a} tak, aby byl rovnoběžný s vektorem \tl{b}, použijeme vzorec \ref{Rodriguez}, úhel rotace $\theta$ a vektor $\tilde{\mathbf{u}}$, kolem kterého rotace proběhne, se určí následovně.
 \begin{align}
-    \mathbf{v} = \frac{\mathbf{a} \times \mathbf{b}}{\norm{\mathbf{a}\times \mathbf{b}}}\\
+    \tilde{\mathbf{u}} = \frac{\mathbf{a} \times \mathbf{b}}{\norm{\mathbf{a}\times \mathbf{b}}}\\
     \theta = \arccos \left( \frac{\mathbf{a} \cdot \mathbf{b}}{\norm{\mathbf{a}}\norm{\mathbf{b}}} \right)
 \end{align}
-Podle \cite{james_w_angle_2014} je tato metoda nevhodná pro výpočet na počítači. Zejména pak v případech, kdy bychom měli počícat $\arccos$ hodnot blízko $\pm 1$. Toto je způsobeno omezonou přesností reprazentace desetinných čísel v počítači (takzvaná floating point aritmetika). Přesnější je tedy použít tento vzorec.
+Podle \cite{james_w_angle_2014} je tato metoda nevhodná pro výpočet na počítači. Zejména pak v případech, kdy bychom měli počícat $\arccos$ hodnot blízko $\pm 1$. Toto je způsobeno omezenou přesností reprezentace desetinných čísel v počítači (takzvaná floating point aritmetika). Přesnější je tedy použít tento vzorec.
 \begin{align}
     \theta = \text{atan2}\left( \norm{\mathbf{a} \times \mathbf{b}}, \mathbf{a}\cdot \mathbf{b} \right) 
 \end{align}
-Výhoda funkce atan2 oproti arcus tangens je oštřené dělení nulou, ke ktrému může dojít při zaokrouhlování desetiných čísel. Navíc funkce vrací úhel v rozmezí $\left[ 0, 2\pi \right]$
+Výhoda funkce atan2 oproti arcus tangens je ošetřené dělení nulou, ke kterému může dojít při zaokrouhlování desetinných čísel. Navíc funkce vrací úhel v rozmezí $\left[ 0, 2\pi \right]$
 
 \section{Sobelův operátor pro detekci hran}
 \label{subsec:sobel}
-Hrana v obrazu může být také pozorována, jako prodká změna intenzity obrazu v daném místě. Rychlé změny se dají detekovat pomocí gradientu, který je pro spojitou funcki $f(x,y)$ v bodě $(x,y)$ vyjádřen následovně. 
+Hrana v obrazu může být také pozorována jako prudká změna intenzity obrazu v daném místě. Rychlé změny se dají detekovat pomocí gradientu, který je pro spojitou funcki $f(x,y)$ v bodě $(x,y)$ vyjádřen následovně. 
 \begin{align}
     \nabla f(x,y) =  \begin{bmatrix} \mathbf{G}_x & \mathbf{G}_y \end{bmatrix} = \begin{bmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \end{bmatrix} \label{eq:grad}
 \end{align}
-Velikost a směr gradientu se jsou určeny následovně.
+Velikost a směr gradientu se určí následovně.
 \begin{align}
     \text{mag}(\nabla f) = ||\nabla f ||_2 = \sqrt[2]{\mathbf{G}_x ^2 + \mathbf{G}_y ^2} \label{eq:grad_mag} \\
     \boldsymbol{\theta} = \text{arctan} (\frac{\mathbf{G}_y}{\mathbf{G}_x})
 \end{align}
-Parciální derivace musí být spočítané pro každý pixel $(x,y)$ obrazu \tl{A}. K tomuto se využívá Sobelových kernelů $\mathbf{K}_x$, $\mathbf{K}_y$. Tyto se konvolvují s obrazem a v každém bodě aproximují hodnotu obou parciálních derivací $g_x(x,y), g_y(x,y)$. Ze kterých se pak podle vztahu \ref{eq:grad} určí gradient.
+Parciální derivace musí být spočítané pro každý pixel $(x,y)$ obrazu \tl{A}. K tomuto se využívá Sobelových kernelů $\mathbf{K}_x$, $\mathbf{K}_y$. Tyto se konvolvují s obrazem a v každém bodě aproximují hodnotu obou parciálních derivací $g_x(x,y), g_y(x,y)$, ze kterých se pak podle vztahu \ref{eq:grad} určí gradient.
 \begin{align}
     \mathbf{K}_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 &2 \\ -1 & 0 & -1 \end{bmatrix} \quad \mathbf{K}_y = \begin{bmatrix} 1 & 2 & 1 \\ 0 & 0 & 0 \\ -1 & -2 & -1 \end{bmatrix} \\
     g_x(x,y) = \sum_{k = -1}^1 \sum_{l = -1}^1 \mathbf{K}_x(k,l)\mathbf{A}(x+k, y+l) \\
     g_y(x,y) = \sum_{k = -1}^1 \sum_{l = -1}^1 \mathbf{K}_y(k,l)\mathbf{A}(x+k, y+l) \\
 \end{align}
-Výpočet gradientu intenzity tímto způsobem je výpočetně relativně nenáročný. Pro další zrychlení výpočtu se používá aproximace magnitudy gradientu místo extatního výpočtu \ref{eq:grad_mag}. Nejjednodušší aproximací je 
+Určení gradientu intenzity tímto způsobem je relativně nenáročné. Pro zrychlení výpočtu se používá aproximace magnitudy gradientu místo exaktního výpočtu \ref{eq:grad_mag}. Nejjednodušší aproximací je 
 \begin{align}
-    \text{mag}(\nabla f) \approx ||\nabla f ||_1 = |\mathbf{G}_x| + |\mathbf{G}_y|  
+    \text{mag}(\nabla f) \approx ||\nabla f ||_1 = |\mathbf{G}_x| + |\mathbf{G}_y|.  
 \end{align}
-tato dává sice velice nepřesný výsledek, ale pro aplikace, kde stačí hrubý odhad velikosti gradientu může značně snížit výpočetní dobu.
+Ta dává sice velice nepřesný výsledek, ale pro aplikace, kde stačí hrubý odhad velikosti gradientu, může značně snížit výpočetní dobu.
 
 \section{Hledání konvexního obalu množiny bodů}
-Je li dána množina $S$ obsahující $n$ bodů v euklidovském prostoru $\mathcal{E}^3$, popřípadě euklidovské ploše $\mathcal{E}^2$, pak konvexní obal množiny $S$ je nejmenší konvexní možina obsahující množinu $S$ \cite{chan1996optimal}.
+Je-li dána množina $S$ obsahující $n$ bodů v euklidovském prostoru $\mathbb{E}^3$, popřípadě euklidovské ploše $\mathbb{E}^2$, pak konvexní obal $H$ množiny $S$ je nejmenší konvexní možina obsahující množinu $S$ \cite{chan1996optimal}.
+
+Mezi nejpoužívanější algoritmy pro hledání konvexního obalu bodů v  euklidovské ploše $\mathbb{E}^2$ patří následující.
+\subsection{Grahamův algoritmus}
+Je nalezen bod $\mathbf{p}_0$, jehož $y$-ová souřadnice nabývá nejmenší hodnoty ze všech bodů množiny $S$. Všechny ostatní body jsou seřazeny podle úhlu, který svírají s osou $x$. K tomuto se využívá obecného třídícího algoritmu, jako je například heapsort, a tento krok má tedy časovou náročnost $\mathcal{O}(n\log n)$. Seřazené body jsou postupně procházeny a na základě následujícího kritéria zařazeny\footnote{Bod zařezený do konvexního obalu může být v dalším kroku vyloučen.}, popřípadě vyloučeny z konvexního obalu $H$ \cite{convex_hull_formalizing}
+        \begin{align}
+            \begin{gathered}
+            O(\mathbf{p}, \mathbf{r}, \mathbf{q}) = \det \begin{pmatrix} p_x & r_x & q_x \\ p_y & r_y & q_y \\ 1 & 1 & 1 \end{pmatrix} \\
+            \left\{ \begin{gathered}
+                    \mathbf{r} \in H, \mathbf{p} = \mathbf{r}, \mathbf{r} = \mathbf{q}, \mathbf{q}  = \mathbf{p_i} \text{ iff } O > 0 \\
+                    \mathbf{r} \notin H, \mathbf{p} = \mathbf{p}, \mathbf{r} = \mathbf{q}, \mathbf{q}  = \mathbf{p_i} \text{ iff } O \leq 0
+            \end{gathered} \right\},
+        \end{gathered}
+        \end{align}
+kde $\mathbf{p}_i$ je další bod v pořadí seřazených bodů z $S$. Výše popsané ověřování bodů je provedeno v čase $\mathcal{O}(n)$.
+
+
+Na podobném principu funguje i Andrewův algoritmus. Ten využívá lexikografického uspořádání bodů podle $x$-ové souřadnice, čímž se vyhne výpočtům s destinou čárkou, které mohou být zdrojem nepřesností.\cite{convex_hull_review}
+
+\subsection{Jarvisův pochod (Jarvis march)}
+Je zvolen bod $\mathbf{p}_0$ náležící konvexnímu obalu $H$, což je například první bod v lexikografickém uspořádání bodů $S$. Ten je najit v čase $\mathcal{O}(n)$. Dále je spočítán relativní úhel mezi $\mathbf{p}_0$ a ostatními body. Z těch je pak vybrán bod $\mathbf{p}_n$, jehož úhel nabývá nejmenší hodnoty. Bod $\mathbf{p}_n$ je přídán do obalu $H$ a postup se opakuje z bodu $\mathbf{p}_n$. Algoritmus končí ve chvíli, kdy platí $\mathbf{p}_n = \mathbf{p}_0$. Tento postup odpovídá postupnému procházení všech vrcholů polygonu, který reprezentuje konvexní obal, a jeho časová náročnost je $\mathcal{O}(hn)$, kde $h$ je počet vrcholů. Může tedy být pro aplikace s předem známým počtem vrcholů rychlejší než Grahamův algoritmus.
+
+\subsection{Chanův algoritmus}
+Jedná se o ideální na výstup citlivý algoritmus určený k výpočtu komplexního obalu množiny. Výpočet dosahuje náročnosti $\mathcal{O}(n\log h)$ 
+
+Množina bodů  $S$ je rozdělena do $K$ množin $Q_i$. V každé množině se nachází maximálně $m$ bodů, kde $m$ je předem určená hodnota, pro kterou musí platit $m \geq h$. Pokud tato rovnost není splněna, musí být hodnota $m$ zvýšena a algoritmus se opakuje. Následně je proveden Grahamův algoritmus na každou množinu $Q_i$ s časovou náročností $\mathcal{O}(n\log m)$. Poté je zvolen bod, který náleží $H$ a je užit Jarvisův pochod. Ten musí najít nejmenší prvek mezi maximálně $m$ seřazenými vrcholy v $K$ množinách, což je realizovatelné v čase $\mathcal{O}(K \log m)$. Pro $h$ vrcholů je tedy výsledná časová náročnost $\mathcal{O}(n \log h)$, za předpokladu, že hodnota $m$ je blízká hodnotě $h$.\cite{chan1996optimal}
+
+\section{Nejmenší ohraničující obdélník}
+Nejmenší ohraničující obdélník je možné určit z konvexního obalu $H$ množiny $S$. Ten může být najit v čase $\mathcal{O}(h)$ například pomocí star algoritmu \cite{toussaint1984complexity} nebo pomocí otáčejících třemenů (rotating calipers).
+
+Kolem množiny jsou umístěny dva páry na sebe ortogonální přímek, takzvaných třmenů (viz. obrázek \ref{fig:rotating_calipers}), které se konvexního obalu dotýkají v některém z vrcholů $\mathbf{p}_i$, nebo mají společnou přímku spojující vrcholy \tli{p}{i-1} a \tli{p}{i}. V každém kroku je spočítán úhel \tli{\theta}{i} mezi třmenem, který se dotýká vrcholu \tli{p}{i}, a vrcholem \tli{p}{i+1}. Tento výpočet se opakuje pro všechny 4 třmeny, viz. obrázek \ref{fig:rotating_calipers}. Následně je výbrán úhel $\theta = \min \{ \theta_i, \theta_j, \theta_k, \theta_l \}$, o který je provedena rotace všech třmenů. Třmeny jsou pak ve směru svého normálového vektoru posunty tak, aby platila výše uvedená podmínka doteku třmenu s konvexní množinou v jednom, resp. dvou vrcholech. Dále je vypočten obsah obdélníku, jehož strany tvoří výše zmíněné třmeny. Celý postup se poté opakuje, dokud není vyzkoušeno všech $h$ obdélníků. Následně je vybrán ten s nejmenší plochou.
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.7 \linewidth]{pictures/rotating_calipers.png}
+    \caption{Otáčející se třmeny}
+    \label{fig:rotating_calipers}
+\end{figure}
 
 \section{Vlastní čísla a vektory}
+%\TODO
 Pro čtvercovou matici \minsp{A}{R}{n\times n} a nenulový vektor \tl{v}\minsp{}{R}{n} a sklár $\lambda \in \mathbb{R}$ platí
 \begin{align}
     \mathbf{Av} = \lambda \mathbf{v}.
@@ -90,7 +136,9 @@ Pro čtvercovou matici \minsp{A}{R}{n\times n} a nenulový vektor \tl{v}\minsp{}
 Skalár $\lambda$ se nazývá vlastní číslo matice \tl{A} a vektor \tl{v} vlastní vektor příslušný vlastnímu číslu $\lambda$.
 Spektrální věta (viz. \cite{Werner2020}) říka: Je-li matice \tl{A} symetrická, pak má $n$ vlastních čísel, kde $n = \text{rank}\mathbf{A}$ a všechna vlastní čísla jsou reálná.
 
+
 \section{Singulární rozklad}
+\todo[inline]{add some changes}
 Singulární SVD\footnote{Z anglického Singular Value Decomposition}rozklad umožní každou matici \tl{A} $\in$ \spc{R}{m \times n} rozložit jako
 \begin{align}
     \mathbf{A} = \mathbf{USV}^T
@@ -103,32 +151,34 @@ Analýza hlavních komponent (PCA\footnote{Z anglického Principal Component Ana
 \chapter{Kamera}
 
 \section{Dírkový model kamery}
-Kamera zobrazuje body \tl{p} $\in \mathbb{E}^3$ na $\mathbf{p}_{o} \in \mathbb{E}^2$. Je to tedy zobrazení mapující body ve světovém souřadném systému na body v souřadném systému obrazu kamery. Nejjednodušším modelem je dírkový. Jedná se o model kamery s konečný optickým centrem, neboli centrem projekce. Toto umístíme do počátku kartézského souřadného systému a budeme uvažovat plochu kolmou na osu $Z$ našeho souřadného systému, kterou nazveme obrazovou rovinou tato je popsána jediným parametrem a to ohniskovou vzdáleností $f$. V dírkovém modelu kamery se bod v prostoru \tl{p} = $(x,y,z)^T$ zobrazí na bod obrazu pomocí následující zobrazení
+Kamera zobrazuje body euklidovského prostoru $\mathbb{E}^3$, které jsou popsány pomocí světových souřadnic na body v euklidovské ploše $\mathbb{E}^2$, která se nazývá obraz. Body obrazu se označují jako pixely. 
+
+Nejjednodušším modelem kamery je model dírkový, který má optické centrum, neboli centrum projekce, v konečnu. Centrum projekce umístíme do počátku kartézského souřadného systému a budeme uvažovat plochu kolmou na osu $Z$ našeho souřadného systému, kterou nazveme obrazovou rovinou. Ta je popsána jediným parametrem a to ohniskovou vzdáleností $f$. V dírkovém modelu kamery se bod v prostoru \tl{p} = $(x,y,z)^T$ promítne na bod obrazu pomocí zobrazení
 \begin{align}
-    \begin{bmatrix} x \\ y \\ z \end{bmatrix} \mapsto \begin{bmatrix} \sfrac{fx}{z} \\ \sfrac{fx}{z} \end{bmatrix}
+    \begin{bmatrix} x \\ y \\ z \end{bmatrix} \mapsto \begin{bmatrix} \sfrac{fx}{z} \\ \sfrac{fx}{z} \end{bmatrix},
     \label{pinhole_eq}
 \end{align}
-což odpovídá bodu, kde přímka spojující centrum projekce a bod v prostoru, protne obrazovou rovinu (viz obrázek \ref{pinhole}). Ve vztahu \ref{pinhole_eq} jsme předpokládali, že počátek souřadného systému obrazu je v optickém středu. Konvencí však je za počátek souřadnic zvolit levý horní roh obrazu. K zápisu využijeme homogenních souřadnic a dostaneme následující rovnici pro zobrazení z souřadného systému kamery do systému obrazu s počátkem v levém horním rohu obrazu
+což odpovídá bodu, kde přímka spojující centrum projekce a bod v prostoru, protne obrazovou rovinu (viz obrázek \ref{pinhole}). Ve vztahu \ref{pinhole_eq} jsme předpokládali, že počátek souřadného systému obrazu je v optickém středu. Konvencí však je za počátek souřadnic zvolit levý horní roh obrazu. K zápisu využijeme homogenních souřadnic a dostaneme následující rovnici \unsure{pro zobrazení z souřadného systému kamery do systému obrazu s počátkem v levém horním rohu obrazu}
 \begin{align}
-    \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} \mapsto \begin{bmatrix} fx + zc_x \\ fy + zc_y \\ z \end{bmatrix} = \begin{bmatrix} f & 0 & c_x & 0 \\ 0 & f & c_y & 0 \\ 0 & 0 & 1 &0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
+    \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} \mapsto \begin{bmatrix} fx + zc_x \\ fy + zc_y \\ z \end{bmatrix} = \begin{bmatrix} f & 0 & c_x & 0 \\ 0 & f & c_y & 0 \\ 0 & 0 & 1 &0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix},
     \label{eq:pinhole_homogenous}
 \end{align}
-kde jako $c_x$ a $c_y$ jsme označili souřadnice optického středu. Označíme-li obecný bod v prostoru,který je popsán v souřadném systému kamer \tl{x}$_p$ a odpovídající bod v rovině obrazu \tl{x}, pak můžeme rovnici \ref{eq:pinhole_homogenous} přepsat jako
+kde jsme jako $c_x$ a $c_y$ označili souřadnice optického středu. Označíme-li obecný bod v prostoru, který je popsán v souřadném systému kamer, \tl{x}$_p$ a odpovídající bod v rovině obrazu \tl{x}, pak můžeme rovnici \ref{eq:pinhole_homogenous} přepsat jako
 \begin{align}
-    \mathbf{x} = \mathbf{K}[\mathbf{I}\; |\; 0 ]\mathbf{x}_p \quad \mathbf{K} = \begin{bmatrix} f & 0 & c_x  \\ 0 & f & c_y  \\ 0 & 0 & 1  \end{bmatrix}
+    \mathbf{x} = \mathbf{K}[\mathbf{I}\; |\; 0 ]\mathbf{x}_p \quad \mathbf{K} = \begin{bmatrix} f & 0 & c_x  \\ 0 & f & c_y  \\ 0 & 0 & 1  \end{bmatrix}.
     \label{intrinstic}
 \end{align}
 Matice \tl{K} se nazýva matice vnitřních parametrů kamery.
 
-Obecně je bod v prostoru $\mathbf{x}$ popsán v jiném souřadném systému, než je ten se kterým je svázána kamera, tento se nejčastěji nazývá světový souřadný systém. Přechod do souřadného systému kamery ze světového je možno popsat následovně 
+Obecně je bod $\mathbf{x}$ v euklidovském prostoru popsán v jiném souřadném systému, než je ten se kterým je svázána kamera. Tento souřadný systém se nejčastěji nazývá světový. Přechod do souřadného systému kamery ze světového je možno popsat následovně 
 \begin{align} 
     \mathbf{x}_p = \begin{bmatrix} \mathbf{R} & -\mathbf{R\tilde C} \\ 0 & 1 \end{bmatrix}
-    \mathbf{x}
+    \mathbf{x}.
     \label{world_to_cam}
 \end{align}
-Kde jsme jako $\tilde{\mathbf{C}}$ označili počátek souřadného systému kamery vyjádřený v světových souřadnicích a \tl{R} rotaci světového souřadného systému vzhledem k kameře. Dosadíme-li nyní rovnici \ref{intrinstic} do \ref{world_to_cam} dostane vztah popisující transformaci bodu z světových souřadnic do souřadnic obrazu.
+Jako $\tilde{\mathbf{C}}$ jsme označili počátek souřadného systému kamery vyjádřený v světových souřadnicích a \tl{R} rotaci světového souřadného systému vzhledem ke kameře. Dosadíme-li nyní rovnici \ref{intrinstic} do \ref{world_to_cam} dostaneme vztah popisující transformaci bodu z světových souřadnic do souřadnic obrazu
 \begin{align}
-    \mathbf{x} = \mathbf{KR}[\mathbf{I} \; | \; - \mathbf{\tilde C} ]\mathbf{x}
+    \mathbf{x} = \mathbf{KR}[\mathbf{I} \; | \; - \mathbf{\tilde C} ]\mathbf{x}.
     \label{world_to_img}
 \end{align}
 Parametry $\mathbf{\tilde C}$ a \tl{R} se souhrně nazývají vnější parametry kamery. 
@@ -141,26 +191,26 @@ Parametry $\mathbf{\tilde C}$ a \tl{R} se souhrně nazývají vnější parametr
 
 \section{Stereo kamera}
 \subsection{Výpočet vzdálenosti}
-Stereo kamera je tvořena dvěma nezávislými čočkami. Zpracováním obrazů jsme schopní získat informaci o hloubce každého bodu obrazu. Budeme uvažovat model stereo kamery, kde osy obou čoček jsem rovnoběžné (viz obrázek \ref{stereo_paralel}). Osy jsou od sebe ve vzdálenosti $b$, tomuto parametru se říka báze (baseline). Z podobnosti trojúhelníků plyne
+Stereo kamera je tvořena dvěmi nezávislými čočkami. Zpracováním obrazů z obou čoček jsme schopni získat informace o hloubce každého pixelu. Budeme uvažovat model stereo kamery, kde jsou osy obou čoček rovnoběžné (viz obrázek \ref{stereo_paralel}). Osy jsou od sebe ve vzdálenosti $b$. Tomuto parametru se říka báze (baseline). Z podobnosti trojúhelníků plyne
 \begin{align}
     \frac{z}{f} = \frac{x}{xl} \label{trojuh1} \\
-    \frac{z}{f} = \frac{x - b}{xr} \label{trojuh2}
+    \frac{z}{f} = \frac{x - b}{xr} \label{trojuh2}.
 \end{align}
-pokud z rovnice \ref{trojuh1} vyjádříme $x$ a dosadíme do rovnice \ref{trojuh2}, pak po úpravě dostaneme výsledný vztah pro vzdálenost bodu od kamery. Hodnota d se pak nazývá rozdíl (disparity).
+Pokud z rovnice \ref{trojuh1} vyjádříme $x$ a dosadíme do rovnice \ref{trojuh2}, pak po úpravě dostaneme výsledný vztah pro vzdálenost bodu od kamery 
 \begin{align}
-    z = \frac{fb}{xl - xr} = \frac{fb}{d} 
+    z = \frac{fb}{xl - xr} = \frac{fb}{d}.
     \label{depth_stero}
 \end{align}
-Kde $xl$ a $xr$ jsou souřadnice bodu \tl{p} v levém a pravém obrazu stereokamery. Pro každý bod v levém (popřípadě pravém) obrazu je tedy potřeba najít odpovídající bod v obrazu pravém (tzv. stereo pár). Bez jakékoliv apriorní znalosti by to znamenalo pro každý pixel prohledat celý druhý obraz, tedy náročnost hledání $\mathcal{O}(wh)$, tj. plocha obrazu vyjádřená v pixelech. Pomocí epipolární geometrie můžeme hledání zúžit na přímku  a snížit tak náročnost hledání stero páru na $\mathcal{O}(w)$. \cite{brown2003advances_in_stereo}
+Hodnota $d$ se nazývá rozdíl (disparity) a $xl$, $xr$ jsou souřadnice bodu \tl{p} v levém, resp. pravém obrazu stereokamery. Pro každý bod v levém obrazu je tedy potřeba najít odpovídající bod v obrazu pravém (tzv. stereo pár). Bez jakékoliv apriorní znalosti by to znamenalo pro každý pixel prohledat celý druhý obraz, tedy náročnost hledání $\mathcal{O}(n^2)$. Pomocí epipolární geometrie můžeme hledání zúžit na přímku  a snížit tak náročnost hledání stereo páru na $\mathcal{O}(n)$. \cite{brown2003advances_in_stereo}
 
 \subsection{Chyba výpočtu vzdálenosti}
-Chyba výpočtu vzdálenosti se podle \cite{keselman2017intel} určí derivací rovnice \ref{depth_stero} podle $d$.
+Chyba výpočtu vzdálenosti se určí derivací rovnice \ref{depth_stero} podle $d$ \cite{keselman2017intel} 
 \begin{align}
     \frac{\partial z}{\partial d} = \frac{z}{fb} \\
-    |\epsilon_z | = \frac{z^2}{fb}|\epsilon_d |
+    |\epsilon_z | = \frac{z^2}{fb}|\epsilon_d |,
     \label{error_stereo}
 \end{align}
-Kde $\epsilon_z $ je chyba určení vzdálenosti bodu a $ \epsilon_d $ je chyba rozdílu, toto je vlastnost kamery, popřípadě algoritmu požitého ke hledání odpovídající párů (viz. TODO fill secetion) a nabývá téměř konstantních hodnot \cite{keselman2017intel}. Z \ref{error_stereo} tedy plyne, že chyba je úměrná kvadrátu vzdálenosti daného bodu a přesnost stereo kamer se vzdáleností rychle klesá.
+kde $\epsilon_z $ je chyba určení vzdálenosti bodu a $ \epsilon_d $ je chyba rozdílu. toto je vlastnost kamery, popřípadě algoritmu použitého ke hledání odpovídajících párů, a nabývá téměř konstantních hodnot \cite{keselman2017intel}. Z rovnice \ref{error_stereo} tedy plyne, že chyba je úměrná kvadrátu vzdálenosti daného bodu a přesnost stereo kamer se vzdáleností rychle klesá.
 
 \subsection{Epipolární geometrie}
 \label{Sec:epipolar}
@@ -276,6 +326,7 @@ Procesor kamery není schopen určit hloubku bodu, pokud se objekt nachází př
 \end{figure}
 
 \section{Metody v detekci objektů z hloubkových dat}
+\label{sec:Metody_detekce}
 Existuje spostu růyných metod pro detekci objektů z hloubkových dat. Tyto se liší podle různorodosti detekovaných objektů, požadavkú na čas výpočtu, možnosti získání ténovacích dat nebo formátem vstupních dat. Obvyklím formátem je mračno bodů, neboli point cloud, což je nestrukturovaná množina bodů v trojrozměrném prostoru. Zejména v posledních letech s nástupem hloubkových kamer jako je například Microsoft Kinect, Asus Xtion nebo námi používaný Intel RealSense, se čím dál více používájí data ve formátu RGB-D obrazu, tento se dá pomocí vztahu \ref{eq:pinhole_homogenous} převést na point cloud. Výstupní data z hloubkové kamery bývají většinou oproti LIDARu méně přesné. Výhodami naopak jsou: Vysoká vzorkovací frekvence, velké množstvý výstupních bodů a cena.
 \subsection{Klasické metody}
 
@@ -331,21 +382,9 @@ Důležitým krokem pro porozumění obrazu a pro detekci objektů je segmentace
 \subsubsection{Detekce objektů}
 
 
-\subsection{Určování normálového vektoru}
-Ve většině scén počitačového vidění lze pozrovat velké plochy, jakými jsou například stěny, či zem. Tyto jsou důležitým blokem pro většinu postupů detekce objektů. Například přesné určení směru podložky je nezbytné pro detekci objektů ležících na této podložce. Rozlišujeme dva časté postupy: Již známe body, které jsou součástí dané plochy, tj. již byla provedena segmentace obrazu, nebo 
 
-\section{Výpoet normálového vektoru plochy nerganizovného mračna bodů} 
-Normálový vektor plochy je definován, jako vektor kolmý na každý vektor dané plochy. 
-\section{RANSAC}
-    Výpočet normálového vektoru v bodě proběhne selekcí $n$ bodů jejichž vzdálenost od 
-
-\section{Zvolený postup}
-Bylo navrženo a implementováno několik postupů. Tyto se dělí do dvou kategorií.
-\begin{itemize}
-    \item Segmentace obrazu na skupiny bodů odpovídající jednotlivým cihlám
-    \item Detekce samotné cihly a její vizualizace pomocí ohraničujícího boxu
-\end{itemize}
-
+\section{Navržené řešení}
+Navržené řešení se skládá ze 3 částí a to v souladu se sekcí \ref{sec:Metody_detekce}, tedy nalezení normálového vektoru podložky, segmentace obrazu na jednotlivé cihly a následně nelezení ohraničujících boxů pro jednotlivé cihly. Pro všechny části řešení bylo navrhnuto více postupů a jejich výsledky jsou porovnány v sekci \ref{sec:závěr}. Ve všech částech se výchazí ze zadání, které specifikuje, že na zemi nemůže být krom cihel žadný jiný objekt podobných rozměrů a velikost cihel je předem známa, krom jejich délky, která může nabývat ruzných rozměrů. Cihly na sebe mohou být naskládany v libovolném počtu vrstev a mohou se objevit v libovolném natočení a navzájem se dotýkat. V některých částech byl zaveden předpodklad doteku dvou cihel pouze po celé délce odpovídajících stěn za účelem nabídnout rychlejší alternativu detekce.
 \subsection{Segmentace obrazu}
 \subsubsection{Přístup založený na výšce}
 \label{subsec:height}
@@ -432,6 +471,11 @@ Tato metoda při správném odladění parametru $\delta$ funguje velice přesn�
 \subsection{Detekce objektů ze segmentovaného obrazu}
 Jako při segmentaci obrazu, tak i zde bylo vyzkoušeno několik algoritmů. Některé z nich byly nastaveny na detekci za zjednodušujících podmínek a nabízí tak nižší výpočetní náročnost při stejné přesnosti detekce. Vstupem všech prezentovaných algoritmů bude segmentovaný obraz jako je například obrázek \ref{fig:height_map}, pro tuto segmentaci jsme využili algoritmus \ref{subsec:height}.
 
+\section{Výsledky}
+\label{sec:výsledky}
+
+\section{Závěr}
+\label{sec:závěr}
 
 
 \bibliography{citations}
