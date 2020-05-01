@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Realsense_obrazek}
 {\em The Intel® RealSense™ Depth Camera D435}.
@@ -9,9 +9,44 @@ Stereo and 3d vision.
 \bibitem{RealSense_datasheet}
 {\em Intel® RealSense™ D400 Series Product Family}, 2019.
 
+\bibitem{single_RGBD_reconstruction}
+Panagiotis-Alexandros Bokaris, Damien Muselet, and Alain Tr{\'e}meau.
+\newblock {3D reconstruction of indoor scenes using a single RGB-D image}.
+\newblock In {\em {12th International Conference on Computer Vision Theory and
+  Applications (VISAPP 2017)}}, Porto, Portugal, February 2017.
+
+\bibitem{brown2003advances_in_stereo}
+Myron~Z Brown, Darius Burschka, and Gregory~D Hager.
+\newblock Advances in computational stereo.
+\newblock {\em IEEE transactions on pattern analysis and machine intelligence},
+  25(8):993--1008, 2003.
+
+\bibitem{chan1996optimal}
+Timothy~M Chan.
+\newblock Optimal output-sensitive convex hull algorithms in two and three
+  dimensions.
+\newblock {\em Discrete \& Computational Geometry}, 16(4):361--368, 1996.
+
+\bibitem{RANSAC_plane}
+Orazio Gallo, Roberto Manduchi, and Abbas Rafii.
+\newblock Cc-ransac: Fitting planes in the presence of multiple surfaces in
+  range data.
+\newblock {\em Pattern Recognition Letters}, 32(3):403--410, 2011.
+
+\bibitem{holz2011real}
+Dirk Holz, Stefan Holzer, Radu~Bogdan Rusu, and Sven Behnke.
+\newblock Real-time plane segmentation using rgb-d cameras.
+\newblock In {\em Robot Soccer World Cup}, pages 306--317. Springer, 2011.
+
 \bibitem{james_w_angle_2014}
 Walker James~W.
 \newblock Angle {Between} {Vectors}, nov 2014.
+
+\bibitem{segmentace_metody}
+Dilpreet Kaur and Yadwinder Kaur.
+\newblock Various image segmentation techniques: a review.
+\newblock {\em International Journal of Computer Science and Mobile Computing},
+  3(5):809--814, 2014.
 
 \bibitem{keselman2017intel}
 Leonid Keselman, John Iselin~Woodfill, Anders Grunnet-Jepsen, and Achintya
@@ -26,6 +61,32 @@ Annika Kuhl.
 \newblock {\em The University of Western Australia Faculty of Engineering,
   Computing and Mathematics}, 2005.
 
+\bibitem{lai2011large}
+Kevin Lai, Liefeng Bo, Xiaofeng Ren, and Dieter Fox.
+\newblock A large-scale hierarchical multi-view rgb-d object dataset.
+\newblock In {\em 2011 IEEE international conference on robotics and
+  automation}, pages 1817--1824. IEEE, 2011.
+
+\bibitem{rusu2009close}
+Radu~Bogdan Rusu, Nico Blodow, Zoltan~Csaba Marton, and Michael Beetz.
+\newblock Close-range scene segmentation and reconstruction of 3d point cloud
+  maps for mobile manipulation in domestic environments.
+\newblock In {\em 2009 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems}, pages 1--6. IEEE, 2009.
+
+\bibitem{trevor2013efficient}
+Alexander~JB Trevor, Suat Gedikli, Radu~B Rusu, and Henrik~I Christensen.
+\newblock Efficient organized point cloud segmentation with connected
+  components.
+\newblock {\em Semantic Perception Mapping and Exploration (SPME)}, 2013.
+
+\bibitem{wang2015dominant}
+Jiefei Wang, Matthew Garratt, and Sreenatha Anavatti.
+\newblock Dominant plane detection using a rgb-d camera for autonomous
+  navigation.
+\newblock In {\em 2015 6th International Conference on Automation, Robotics and
+  Applications (ICARA)}, pages 456--460. IEEE, 2015.
+
 \bibitem{RodriguesRotationFormula}
 Serge Weisstein Eric~W., Belonie.
 \newblock Rodrigues' rotation formula.
@@ -35,5 +96,11 @@ Serge Weisstein Eric~W., Belonie.
 Tomáš Werner.
 \newblock {\em Optimalizace}.
 \newblock České vysoké učení technické, 11.2.2020 edition, 2020.
+
+\bibitem{zhang2016fast}
+Lizhi Zhang, Diansheng Chen, and Weihui Liu.
+\newblock Fast plane segmentation with line primitives for rgb-d sensor.
+\newblock {\em International Journal of Advanced Robotic Systems},
+  13(6):1729881416665846, 2016.
 
 \end{thebibliography}

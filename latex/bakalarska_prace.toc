@@ -1,0 +1,61 @@
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\contentsline {paragraph}{Kl\'i\v cov\'a\ slova:}{iv}{paragraph*.1}
+\contentsline {paragraph}{Vedouc\IeC {\'\i }:}{iv}{paragraph*.2}
+\babel@toc {english}{}
+\contentsline {paragraph}{Keywords:}{iv}{paragraph*.3}
+\contentsline {paragraph}{Title\ translation:}{iv}{paragraph*.4}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {english}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\contentsline {chapter}{\numberline {1}Matematick\IeC {\'y} apar\IeC {\'a}t}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Homogenn\IeC {\'\i } sou\IeC {\v r}adnice}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Rotace a rota\IeC {\v c}n\IeC {\'\i } matice}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Sobel\IeC {\r u}v oper\IeC {\'a}tor pro detekci hran}{2}{section.1.3}
+\contentsline {section}{\numberline {1.4}Hled\IeC {\'a}n\IeC {\'\i } konvexn\IeC {\'\i }ho obalu mno\IeC {\v z}iny bod\IeC {\r u}}{3}{section.1.4}
+\contentsline {section}{\numberline {1.5}Vlastn\IeC {\'\i } \IeC {\v c}\IeC {\'\i }sla a vektory}{3}{section.1.5}
+\contentsline {section}{\numberline {1.6}Singul\IeC {\'a}rn\IeC {\'\i } rozklad}{4}{section.1.6}
+\contentsline {section}{\numberline {1.7}Anal\IeC {\'y}za hlavn\IeC {\'\i }ch komponent}{4}{section.1.7}
+\contentsline {chapter}{\numberline {2}Kamera}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}D\IeC {\'\i }rkov\IeC {\'y} model kamery}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Stereo kamera}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}V\IeC {\'y}po\IeC {\v c}et vzd\IeC {\'a}lenosti}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Chyba v\IeC {\'y}po\IeC {\v c}tu vzd\IeC {\'a}lenosti}{7}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Epipol\IeC {\'a}rn\IeC {\'\i } geometrie}{7}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Hled\IeC {\'a}n\IeC {\'\i } stereo p\IeC {\'a}ru}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Plo\IeC {\v s}n\IeC {\'e} metody}{8}{subsection.2.3.1}
+\contentsline {subsubsection}{Sou\IeC {\v c}et absolutn\IeC {\'\i }ch rozd\IeC {\'\i }l\IeC {\r u}}{8}{subsubsection*.5}
+\contentsline {subsubsection}{Sou\IeC {\v c}et absolutn\IeC {\'\i }ch rozd\IeC {\'\i }l\IeC {\r u}}{8}{subsubsection*.5}
+\contentsline {subsubsection}{Cenzus}{9}{subsubsection*.6}
+\contentsline {subsubsection}{Cenzus}{9}{subsubsection*.6}
+\contentsline {subsection}{\numberline {2.3.2}Porovn\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } rys\IeC {\r u}}{9}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Intel Realsense D435}{9}{section.2.4}
+\contentsline {section}{\numberline {2.5}Metody v detekci objekt\IeC {\r u} z hloubkov\IeC {\'y}ch dat}{11}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Klasick\IeC {\'e} metody}{11}{subsection.2.5.1}
+\contentsline {subsubsection}{Ur\IeC {\v c}en\IeC {\'\i } norm\IeC {\'a}lov\IeC {\'e}ho vektoru plochy z nestrukturovan\IeC {\'y}ch dat}{11}{subsubsection*.7}
+\contentsline {subsubsection}{Ur\IeC {\v c}en\IeC {\'\i } norm\IeC {\'a}lov\IeC {\'e}ho vektoru plochy z nestrukturovan\IeC {\'y}ch dat}{11}{subsubsection*.7}
+\contentsline {subsection}{\numberline {2.5.2}Segmentace obrazu}{12}{subsection.2.5.2}
+\contentsline {subsubsection}{Detekce objekt\IeC {\r u}}{14}{subsubsection*.8}
+\contentsline {subsubsection}{Detekce objekt\IeC {\r u}}{14}{subsubsection*.8}
+\contentsline {subsection}{\numberline {2.5.3}Ur\IeC {\v c}ov\IeC {\'a}n\IeC {\'\i } norm\IeC {\'a}lov\IeC {\'e}ho vektoru}{14}{subsection.2.5.3}
+\contentsline {section}{\numberline {2.6}V\IeC {\'y}poet norm\IeC {\'a}lov\IeC {\'e}ho vektoru plochy nerganizovn\IeC {\'e}ho mra\IeC {\v c}na bod\IeC {\r u}}{15}{section.2.6}
+\contentsline {section}{\numberline {2.7}RANSAC}{15}{section.2.7}
+\contentsline {section}{\numberline {2.8}Zvolen\IeC {\'y} postup}{15}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Segmentace obrazu}{15}{subsection.2.8.1}
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }stup zalo\IeC {\v z}en\IeC {\'y} na v\IeC {\'y}\IeC {\v s}ce}{15}{subsubsection*.9}
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }stup zalo\IeC {\v z}en\IeC {\'y} na v\IeC {\'y}\IeC {\v s}ce}{15}{subsubsection*.9}
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }stup zalo\IeC {\v z}en\IeC {\'y} na zm\IeC {\v e}n\IeC {\v e} v\IeC {\'y}\IeC {\v s}ky}{16}{subsubsection*.10}
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }stup zalo\IeC {\v z}en\IeC {\'y} na zm\IeC {\v e}n\IeC {\v e} v\IeC {\'y}\IeC {\v s}ky}{17}{subsubsection*.10}
+\contentsline {subsection}{\numberline {2.8.2}Detekce objekt\IeC {\r u} ze segmentovan\IeC {\'e}ho obrazu}{17}{subsection.2.8.2}
+\contentsline {chapter}{Literatura}{21}{chapter*.11}

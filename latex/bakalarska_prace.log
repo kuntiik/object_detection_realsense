@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.16)  17 APR 2020 13:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.16)  1 MAY 2020 11:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -812,6 +812,25 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \c@ALC@depth=\count183
 \ALC@tlm=\skip51
 \algorithmicindent=\skip52
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen143
+\captionmargin@=\dimen144
+\captionwidth=\dimen145
+\caption@tempdima=\dimen146
+\caption@indent=\dimen147
+\caption@parindent=\dimen148
+\caption@hangindent=\dimen149
+)
+\c@ContinuedFloat=\count184
+Package caption Info: float package is loaded.
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
+\c@subfigure=\count185
+\c@subtable=\count186
 ) (./inputs/ctu_setup.tex (./ctuth-pkg.tex
 File: ctuth-pkg.tex 2016/06/15 v0.1t1606152353 "Packages" part of the class ctuthesis
  (/usr/share/texmf/tex/latex/lm/lmodern.sty
@@ -856,11 +875,11 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 )) (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2018/01/14 v2.7a Micro-typographical refinements (RS)
 \MT@toks=\toks22
-\MT@count=\count184
+\MT@count=\count187
 LaTeX Info: Redefining \textls on input line 793.
-\MT@outer@kern=\dimen143
+\MT@outer@kern=\dimen150
 LaTeX Info: Redefining \textmicrotypecontext on input line 1339.
-\MT@listname@count=\count185
+\MT@listname@count=\count188
  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
 File: microtype-pdftex.def 2018/01/14 v2.7a Definitions specific to pdftex (RS)
 LaTeX Info: Redefining \lsstyle on input line 913.
@@ -874,26 +893,25 @@ File: microtype.cfg 2018/01/14 v2.7a microtype main configuration file (RS)
 Package: pdfpages 2017/10/31 v0.5l Insert pages of external PDF documents (AM)
  (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count186
-\calc@Bcount=\count187
-\calc@Adimen=\dimen144
-\calc@Bdimen=\dimen145
+\calc@Acount=\count189
+\calc@Bcount=\count190
+\calc@Adimen=\dimen151
+\calc@Bdimen=\dimen152
 \calc@Askip=\skip54
 \calc@Bskip=\skip55
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count188
+\calc@Ccount=\count191
 \calc@Cskip=\skip56
 ) (/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -911,15 +929,15 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 ))
-\AM@pagewidth=\dimen146
-\AM@pageheight=\dimen147
+\AM@pagewidth=\dimen153
+\AM@pageheight=\dimen154
  (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
 File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box46
 \AM@global@opts=\toks23
 \AM@toc@title=\toks24
-\c@AM@survey=\count189
+\c@AM@survey=\count192
 \AM@templatesizebox=\box47
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2018/02/14 3.18 The Babel package
@@ -929,20 +947,20 @@ File: switch.def 2018/02/14 3.18 Babel switching mechanism
 Language: czech 2008/07/06 v3.1a Czech support from the babel system
  (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
 File: babel.def 2018/02/14 3.18 Babel common definitions
-\babel@savecnt=\count190
-\U@D=\dimen148
+\babel@savecnt=\count193
+\U@D=\dimen155
  (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@dirlevel=\count191
+\bbl@dirlevel=\count194
 )
 Package babel Info: Making " an active character on input line 172.
-\cs@wordlen=\count192
+\cs@wordlen=\count195
 Package babel Info: Making - an active character on input line 226.
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel-slovak/slovak.ldf
 Language: slovak 2008/07/06 v3.1a Slovak support from the babel system
 Package babel Info: Making ^ an active character on input line 123.
 Package babel Info: Making ' an active character on input line 129.
 LaTeX Info: Redefining \uv on input line 278.
-\cs@wordlen=\count193
+\cs@wordlen=\count196
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 \l@british = a dialect from \language\l@english 
@@ -965,8 +983,8 @@ Language: czech 2008/07/06 v3.1a Czech support from the babel system
 . 
 . Defining environment 'twocolumnfrontmatterpage' with sig. '' on line 176.
 .................................................
-\g_ctuthesis_geometry_textwidth_dim=\dimen149
-\g_ctuthesis_geometry_textheight_dim=\dimen150
+\g_ctuthesis_geometry_textwidth_dim=\dimen156
+\g_ctuthesis_geometry_textheight_dim=\dimen157
  (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
@@ -975,20 +993,20 @@ Package ifvtex Info: VTeX not detected.
 ) (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count194
-\Gm@cntv=\count195
-\c@Gm@tempcnt=\count196
-\Gm@bindingoffset=\dimen151
-\Gm@wd@mp=\dimen152
-\Gm@odd@mp=\dimen153
-\Gm@even@mp=\dimen154
-\Gm@layoutwidth=\dimen155
-\Gm@layoutheight=\dimen156
-\Gm@layouthoffset=\dimen157
-\Gm@layoutvoffset=\dimen158
+\Gm@cnth=\count197
+\Gm@cntv=\count198
+\c@Gm@tempcnt=\count199
+\Gm@bindingoffset=\dimen158
+\Gm@wd@mp=\dimen159
+\Gm@odd@mp=\dimen160
+\Gm@even@mp=\dimen161
+\Gm@layoutwidth=\dimen162
+\Gm@layoutheight=\dimen163
+\Gm@layouthoffset=\dimen164
+\Gm@layoutvoffset=\dimen165
 \Gm@dimlist=\toks25
 )
-\g_ctuthesis_geometry_innermargin_dim=\dimen159
+\g_ctuthesis_geometry_innermargin_dim=\dimen166
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: 
 * paper: a4paper
@@ -1027,12 +1045,12 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \ttl@box=\box48
 \beforetitleunit=\skip57
 \aftertitleunit=\skip58
-\ttl@plus=\dimen160
-\ttl@minus=\dimen161
+\ttl@plus=\dimen167
+\ttl@minus=\dimen168
 \ttl@toksa=\toks26
-\titlewidth=\dimen162
-\titlewidthlast=\dimen163
-\titlewidthfirst=\dimen164
+\titlewidth=\dimen169
+\titlewidthlast=\dimen170
+\titlewidthfirst=\dimen171
 )
 \ctu@title@rulewidth=\skip59
 \ctu@title@rulesep=\skip60
@@ -1066,22 +1084,6 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 . 
 . Redefining command \cleardoublepage with sig. 's' on line 655.
 .................................................
- (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
- (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen165
-\captionmargin@=\dimen166
-\captionwidth=\dimen167
-\caption@tempdima=\dimen168
-\caption@indent=\dimen169
-\caption@parindent=\dimen170
-\caption@hangindent=\dimen171
-)
-\c@ContinuedFloat=\count197
-Package caption Info: float package is loaded.
-)
 \@float@every@figure=\toks27
 \@float@every@table=\toks28
  (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
@@ -1096,12 +1098,12 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \cmidrulesep=\dimen179
 \cmidrulekern=\dimen180
 \defaultaddspace=\dimen181
-\@cmidla=\count198
-\@cmidlb=\count199
+\@cmidla=\count266
+\@cmidlb=\count267
 \@aboverulesep=\dimen182
 \@belowrulesep=\dimen183
-\@thisruleclass=\count266
-\@lastruleclass=\count267
+\@thisruleclass=\count268
+\@lastruleclass=\count269
 \@thisrulewidth=\dimen184
 )
 \g_ctuthesis_tempa_box=\box53
@@ -1126,13 +1128,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count268
+\inf@bad=\count270
 LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count269
-\leftroot@=\count270
+\uproot@=\count271
+\leftroot@=\count272
 LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count271
-\DOTSCASE@=\count272
+\classnum@=\count273
+\DOTSCASE@=\count274
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 LaTeX Info: Redefining \cdots on input line 596.
@@ -1141,15 +1143,15 @@ LaTeX Info: Redefining \cdots on input line 596.
 \big@size=\dimen186
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count273
-\c@MaxMatrixCols=\count274
+\macc@depth=\count275
+\c@MaxMatrixCols=\count276
 \dotsspace@=\muskip19
-\c@parentequation=\count275
-\dspbrk@lvl=\count276
+\c@parentequation=\count277
+\dspbrk@lvl=\count278
 \tag@help=\toks29
-\row@=\count277
-\column@=\count278
-\maxfields@=\count279
+\row@=\count279
+\column@=\count280
+\maxfields@=\count281
 \andhelp@=\toks30
 \eqnshift@=\dimen187
 \alignsep@=\dimen188
@@ -1198,14 +1200,14 @@ Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 Writing index file bakalarska_prace.idx
 (/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
-\c@tracingmulticols=\count280
+\c@tracingmulticols=\count282
 \mult@box=\box60
 \multicol@leftmargin=\dimen193
-\c@unbalance=\count281
-\c@collectmore=\count282
-\doublecol@number=\count283
-\multicoltolerance=\count284
-\multicolpretolerance=\count285
+\c@unbalance=\count283
+\c@collectmore=\count284
+\doublecol@number=\count285
+\multicoltolerance=\count286
+\multicolpretolerance=\count287
 \full@width=\dimen194
 \page@free=\dimen195
 \premulticols=\dimen196
@@ -1236,14 +1238,14 @@ Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
 \@tempa=\box81
 \@tempa=\box82
 \@tempa=\box83
-\c@columnbadness=\count286
-\c@finalcolumnbadness=\count287
+\c@columnbadness=\count288
+\c@finalcolumnbadness=\count289
 \last@try=\dimen199
 \multicolovershoot=\dimen256
 \multicolundershoot=\dimen257
 \mult@nat@firstbox=\box84
 \colbreak@box=\box85
-\mc@col@check@num=\count288
+\mc@col@check@num=\count290
 )
 .................................................
 . LaTeX info: "xparse/redefine-environment"
@@ -1296,14 +1298,14 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen258
-\Hy@linkcounter=\count289
-\Hy@pagecounter=\count290
+\Hy@linkcounter=\count291
+\Hy@pagecounter=\count292
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count291
+\Hy@SavedSpaceFactor=\count293
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
@@ -1320,14 +1322,14 @@ Package hyperref Info: Plain pages OFF on input line 4524.
 Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4762.
-\c@Hy@tempcnt=\count292
+\c@Hy@tempcnt=\count294
  (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip20
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5115.
 \XeTeXLinkMargin=\dimen259
-\Fld@menulength=\count293
+\Fld@menulength=\count295
 \Field@Width=\dimen260
 \Fld@charsize=\dimen261
 Package hyperref Info: Hyper figures OFF on input line 6369.
@@ -1339,15 +1341,15 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count294
-\c@Item=\count295
-\c@Hfootnote=\count296
+\Hy@abspage=\count296
+\c@Item=\count297
+\c@Hfootnote=\count298
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count297
-\c@bookmark@seq@number=\count298
+\Fld@listcount=\count299
+\c@bookmark@seq@number=\count300
  (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
@@ -1371,43 +1373,43 @@ File: ctuth-templates.tex 2016/06/15 v0.1t1606152353 "Templates" part of the cla
 )) (./bakalarska_prace.aux)
 \openout1 = `bakalarska_prace.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 18.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 16.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 18.
  (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count299
+\scratchcounter=\count301
 \scratchdimen=\dimen262
 \scratchbox=\box86
-\nofMPsegments=\count300
-\nofMParguments=\count301
+\nofMPsegments=\count302
+\nofMParguments=\count303
 \everyMPshowfont=\toks39
-\MPscratchCnt=\count302
+\MPscratchCnt=\count304
 \MPscratchDim=\dimen263
-\MPnumerator=\count303
-\makeMPintoPDFobject=\count304
+\MPnumerator=\count305
+\makeMPintoPDFobject=\count306
 \everyMPtoPDFconversion=\toks40
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1421,7 +1423,10 @@ Package grfext Info: Graphics extension search list:
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Info: Redefining \microtypecontext on input line 16.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Info: Redefining \microtypecontext on input line 18.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1477,20 +1482,17 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: hyperref package is loaded.
-Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 16.
+Package hyperref Info: Link coloring OFF on input line 18.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count305
+\c@section@level=\count307
 )
-LaTeX Info: Redefining \ref on input line 16.
-LaTeX Info: Redefining \pageref on input line 16.
-LaTeX Info: Redefining \nameref on input line 16.
+LaTeX Info: Redefining \ref on input line 18.
+LaTeX Info: Redefining \pageref on input line 18.
+LaTeX Info: Redefining \nameref on input line 18.
  (./bakalarska_prace.out) (./bakalarska_prace.out)
 \@outlinefile=\write4
 \openout4 = `bakalarska_prace.out'.
@@ -1499,57 +1501,57 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 17.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 19.
  (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 17.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 19.
  (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 17.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 19.
  (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 17.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 19.
  (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 17.
+(Font)              <10.95> on input line 19.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 17.
+(Font)              <8> on input line 19.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 17.
-LaTeX Font Info:    Try loading font information for U+msa on input line 17.
+(Font)              <6> on input line 19.
+LaTeX Font Info:    Try loading font information for U+msa on input line 19.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 17.
+LaTeX Font Info:    Try loading font information for U+msb on input line 19.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<ctu_logo_black.pdf, id=96, 366.36874pt x 279.0425pt>
+<ctu_logo_black.pdf, id=116, 366.36874pt x 279.0425pt>
 File: ctu_logo_black.pdf Graphic file (type pdf)
 <use ctu_logo_black.pdf>
-Package pdftex.def Info: ctu_logo_black.pdf  used on input line 17.
+Package pdftex.def Info: ctu_logo_black.pdf  used on input line 19.
 (pdftex.def)             Requested size: 85.86746pt x 65.40001pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 17.
+(Font)              <14.4> on input line 19.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 17.
+(Font)              <10> on input line 19.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 17.
+(Font)              <7> on input line 19.
  [1
 
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./ctu_logo_black.pdf>]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 17.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 19.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1596,14 +1598,209 @@ Package microtype Info: Loading generic protrusion settings for font family
 .................................................
 . LaTeX info: "xparse/redefine-command"
 . 
-. Redefining command \chapter with sig. 'som' on line 17.
+. Redefining command \chapter with sig. 'som' on line 19.
 .................................................
 .................................................
 . LaTeX info: "xparse/redefine-command"
 . 
-. Redefining command \tableofcontents with sig. '' on line 17.
+. Redefining command \tableofcontents with sig. '' on line 19.
 .................................................
 .................................................
 . LaTeX info: "xparse/redefine-command"
 . 
-. Redefining command \listoffigur
+. Redefining command \listoffigures with sig. '' on line 19.
+.................................................
+.................................................
+. LaTeX info: "xparse/redefine-command"
+. 
+. Redefining command \listoftables with sig. '' on line 19.
+.................................................
+ [3
+
+
+] [4
+
+] (./bakalarska_prace.toc)
+\tf@toc=\write5
+\openout5 = `bakalarska_prace.toc'.
+
+ [5
+
+
+] (./bakalarska_prace.lof
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 23.
+ (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+))
+\tf@lof=\write6
+\openout6 = `bakalarska_prace.lof'.
+
+ (./bakalarska_prace.lot)
+\tf@lot=\write7
+\openout7 = `bakalarska_prace.lot'.
+
+ [6
+
+]
+*geometry* verbose mode - [ newgeometry ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* vratio: 5:6
+* modes: twoside 
+* h-part:(L,W,R)=(93.8031pt, 363.0pt, 140.70477pt)
+* v-part:(T,H,B)=(96.02798pt, 633.78513pt, 115.23373pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=363.0pt
+* \textheight=633.78513pt
+* \oddsidemargin=21.53311pt
+* \evensidemargin=68.43478pt
+* \topmargin=-12.1158pt
+* \headheight=16.0pt
+* \headsep=19.8738pt
+* \topskip=11.0pt
+* \footskip=27.46295pt
+* \marginparwidth=90.70477pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+Kapitola 1.
+LaTeX Font Info:    Calculating math sizes for size <7.66495> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7.66495> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5.36543> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <3.83247> on input line 29.
+
+Underfull \vbox (badness 5756) has occurred while \output is active []
+
+ [1
+
+
+
+
+
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 42.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 69.
+ [2] [3] [4]
+Kapitola 2.
+[5
+
+]
+<pictures/dirkovymodel_nakres.png, id=295, 567.11874pt x 157.58875pt>
+File: pictures/dirkovymodel_nakres.png Graphic file (type png)
+<use pictures/dirkovymodel_nakres.png>
+Package pdftex.def Info: pictures/dirkovymodel_nakres.png  used on input line 137.
+(pdftex.def)             Requested size: 290.40111pt x 80.69861pt.
+ [6 <./pictures/dirkovymodel_nakres.png>]
+<pictures/stereo_sketch.png, id=317, 832.10875pt x 349.305pt>
+File: pictures/stereo_sketch.png Graphic file (type png)
+<use pictures/stereo_sketch.png>
+Package pdftex.def Info: pictures/stereo_sketch.png  used on input line 183.
+(pdftex.def)             Requested size: 290.40111pt x 121.9068pt.
+ [7] [8 <./pictures/stereo_sketch.png>]
+<pictures/epipolar.png, id=344, 629.35126pt x 324.21124pt>
+File: pictures/epipolar.png Graphic file (type png)
+<use pictures/epipolar.png>
+Package pdftex.def Info: pictures/epipolar.png  used on input line 219.
+(pdftex.def)             Requested size: 290.40111pt x 149.59904pt.
+<pictures/realsense_kamera.png, id=345, 655.44875pt x 185.69376pt>
+File: pictures/realsense_kamera.png Graphic file (type png)
+<use pictures/realsense_kamera.png>
+Package pdftex.def Info: pictures/realsense_kamera.png  used on input line 234.
+(pdftex.def)             Requested size: 290.40111pt x 82.27219pt.
+ [9]
+<pictures/realsense_threshold.png, id=357, 302.12875pt x 94.3525pt>
+File: pictures/realsense_threshold.png Graphic file (type png)
+<use pictures/realsense_threshold.png>
+Package pdftex.def Info: pictures/realsense_threshold.png  used on input line 246.
+(pdftex.def)             Requested size: 290.40111pt x 90.68964pt.
+<pictures/minimalni_vzdalenost.png, id=365, 536.0025pt x 199.74625pt>
+File: pictures/minimalni_vzdalenost.png Graphic file (type png)
+<use pictures/minimalni_vzdalenost.png>
+Package pdftex.def Info: pictures/minimalni_vzdalenost.png  used on input line 255.
+(pdftex.def)             Requested size: 290.40111pt x 108.21796pt.
+<pictures/good_realsense.png, id=368, 621.32124pt x 475.7775pt>
+File: pictures/good_realsense.png Graphic file (type png)
+<use pictures/good_realsense.png>
+Package pdftex.def Info: pictures/good_realsense.png  used on input line 264.
+(pdftex.def)             Requested size: 156.81354pt x 120.0766pt.
+<pictures/bad_realsense.png, id=369, 849.1725pt x 477.785pt>
+File: pictures/bad_realsense.png Graphic file (type png)
+<use pictures/bad_realsense.png>
+Package pdftex.def Info: pictures/bad_realsense.png  used on input line 270.
+(pdftex.def)             Requested size: 160.0837pt x 90.06563pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10 <./pictures/epipolar.png> <./pictures/realsense_kamera.png>] [11 <./pictures/realsense_threshold.png> <./pictures/minimalni_vzdalenost.png>] [12 <./pictures/good_realsense.png> <./pictures/bad_realsense.png>] [13]
+Underfull \vbox (badness 3826) has occurred while \output is active []
+
+ [14] [15]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 370.
+<pictures/prob0001body_gnd.png, id=439, 851.18pt x 481.8pt>
+File: pictures/prob0001body_gnd.png Graphic file (type png)
+<use pictures/prob0001body_gnd.png>
+Package pdftex.def Info: pictures/prob0001body_gnd.png  used on input line 400.
+(pdftex.def)             Requested size: 363.0pt x 205.47173pt.
+<pictures/original_vrstva2_pic1.jpg, id=443, 851.18pt x 481.8pt>
+File: pictures/original_vrstva2_pic1.jpg Graphic file (type jpg)
+<use pictures/original_vrstva2_pic1.jpg>
+Package pdftex.def Info: pictures/original_vrstva2_pic1.jpg  used on input line 409.
+(pdftex.def)             Requested size: 363.0pt x 205.47173pt.
+ [16]
+<pictures/pc_crop.png, id=474, 1839.87375pt x 867.24pt>
+File: pictures/pc_crop.png Graphic file (type png)
+<use pictures/pc_crop.png>
+Package pdftex.def Info: pictures/pc_crop.png  used on input line 420.
+(pdftex.def)             Requested size: 363.0pt x 171.10269pt.
+<pictures/obr10_grad.png, id=475, 851.18pt x 481.8pt>
+File: pictures/obr10_grad.png Graphic file (type png)
+<use pictures/obr10_grad.png>
+Package pdftex.def Info: pictures/obr10_grad.png  used on input line 427.
+(pdftex.def)             Requested size: 363.0pt x 205.47173pt.
+ (./bakalarska_prace.bbl [17 <./pictures/prob0001body_gnd.png (PNG copy)>] [18 <./pictures/original_vrstva2_pic1.jpg>] [19 <./pictures/pc_crop.png> <./pictures/obr10_grad.png (PNG copy)>] [20
+
+] [21])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 439.
+ [22]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 439.
+ (./bakalarska_prace.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 439.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 439.
+Package rerunfilecheck Info: File `bakalarska_prace.out' has not changed.
+(rerunfilecheck)             Checksum: AC95E0625E7ADCAF3AF4935897A1430A;4990.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 439.
+ ) 
+Here is how much of TeX's memory you used:
+ 25934 strings out of 494816
+ 445355 string characters out of 6177863
+ 542385 words of memory out of 5000000
+ 28587 multiletter control sequences out of 15000+600000
+ 727149 words of font info for 229 fonts, out of 8000000 for 9000
+ 69 hyphenation exceptions out of 8191
+ 42i,24n,56p,10357b,927s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on bakalarska_prace.pdf (28 pages, 1348487 bytes).
+PDF statistics:
+ 616 PDF objects out of 1000 (max. 8388607)
+ 534 compressed objects within 6 object streams
+ 163 named destinations out of 1000 (max. 500000)
+ 46370 words of extra memory for PDF output out of 51595 (max. 10000000)
+

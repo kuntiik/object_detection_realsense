@@ -6,45 +6,45 @@ Database file #1: citations.bib
 Warning--to sort, need author or key in washingtion_steropic
 Warning--to sort, need author, organization, or key in Realsense_obrazek
 Warning--to sort, need author, organization, or key in RealSense_datasheet
-You've used 8 entries,
+You've used 19 entries,
             2118 wiz_defined-function locations,
-            536 strings with 4974 characters,
-and the built_in function-call counts, 1718 in all, are:
-= -- 155
-> -- 54
-< -- 1
-+ -- 25
-- -- 16
-* -- 83
-:= -- 265
-add.period$ -- 17
-call.type$ -- 8
-change.case$ -- 30
+            610 strings with 7342 characters,
+and the built_in function-call counts, 6170 in all, are:
+= -- 611
+> -- 256
+< -- 5
++ -- 105
+- -- 84
+* -- 405
+:= -- 968
+add.period$ -- 54
+call.type$ -- 19
+change.case$ -- 97
 chr.to.int$ -- 0
-cite$ -- 11
-duplicate$ -- 78
-empty$ -- 181
-format.name$ -- 16
-if$ -- 377
+cite$ -- 22
+duplicate$ -- 247
+empty$ -- 530
+format.name$ -- 84
+if$ -- 1335
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 4
-newline$ -- 36
-num.names$ -- 10
-pop$ -- 57
+int.to.str$ -- 19
+missing$ -- 15
+newline$ -- 91
+num.names$ -- 32
+pop$ -- 130
 preamble$ -- 1
-purify$ -- 24
+purify$ -- 80
 quote$ -- 0
-skip$ -- 64
+skip$ -- 180
 stack$ -- 0
-substring$ -- 60
-swap$ -- 14
-text.length$ -- 1
+substring$ -- 387
+swap$ -- 63
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 30
+type$ -- 74
 warning$ -- 3
-while$ -- 13
-width$ -- 9
-write$ -- 67
+while$ -- 56
+width$ -- 21
+write$ -- 191
 (There were 3 warnings)

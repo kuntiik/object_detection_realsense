@@ -41,6 +41,8 @@ tuple<Vec3f, Vec3f> gramm_schmidt(Vec3f n);
 Point3f p2i_to_p3f(Point2i p, uint16_t z);
 void make_dot(Mat& img, Vec3b color, Coord c);
 void make_dot(Mat& img, Vec3b color, Point2i c);
+Mat get_layer_prespective_2nd_version(Mat& img, Mat& orig, Mat& depth, Vec3f n, float offset);
+Mat get_layer_prespective(Mat& img, Mat& orig, Mat& depth, Vec3f n);
 
 void my_mouse_callback(int event, int x, int y, int flags, void *param) 
 {
@@ -310,6 +312,204 @@ Matx33f getR(Vec3f n, Vec3f t)
 }
 
 
+Mat get_layer_prespective_2nd_version(Mat& img, Mat& orig, Mat& depth, Vec3f n, float offset)
+{
+
+    //vector<Vec4i> hierarchy;
+    
+    vector<vector<Point>> contours;
+    vector<Point> tmp;
+    Point3f p_tmp;
+    Point3f corners_fin[4];
+    Point2f corners[4];
+    Point2i corners_img[4];
+    Mat res;
+    double z_avg;
+    Matx34f corners_as_vec;
+    Vec3f v_tmp;
+
+    Mat color;
+    
+    cvtColor(orig, color, COLOR_GRAY2BGR);
+
+    Matx33f R = getR(n, Vec3f(0, 0, 1));
+    morphologyEx(img.clone(), img, MORPH_OPEN, Mat::ones(3,3, CV_8U));
+    //findContours(img.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+    findContours(img.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+    
+//bounding boxes without prespective
+    RotatedRect bb;
+    Point2f vert[4];
+    for(int j = 0; j < contours.size(); j++){
+    for(int i = 0; i < 4;i++){
+        bb = minAreaRect(contours[j]);
+        bb.points(vert);
+        //line(color, vert[i], vert[(i+1)%4], brown );
+        dotted_line(color, vert[i], vert[(i+1)%4], brown );
+    }
+    }
+
+//now compute prespective
+    //for(int i = 0; i < contours.size(); i++){
+        //convexHull(contours[i], tmp);
+        //contours[i] = tmp;
+    //}
+    int est_height;
+    for(int i = 0; i < contours.size(); i++){
+        z_avg = 0;
+    Mat pts(3, contours[i].size(), CV_32FC1);
+        for(int j=0; j < contours[i].size() ; j++){
+            p_tmp = p2i_to_p3f(contours[i][j], depth.at<uint16_t>(contours[i][j].y,contours[i][j].x)) ;
+            pts.at<float>(0,j) = p_tmp.x;
+            pts.at<float>(1,j) = p_tmp.y;
+            //pts.at<float>(2,j) = p_tmp.z;
+            est_height = -(p_tmp.x*n[0] + p_tmp.y*n[1] -offset*1000 -200)/n[2];
+            //pts.at<float>(2,j) = 1200;
+            pts.at<float>(2,j) = est_height;
+
+            cout << "Height expecetd: " << est_height << "  Height real:  " << p_tmp.z << endl; 
+        }
+
+        res = Mat(R)*pts;
+        res = res/4;
+        double min_v_x =10000,max_v_x =-1000000;
+        double min_v_y =10000,max_v_y =-1000000;
+        vector<Point2i> pts_rot;
+        for(int k = 0; k < contours[i].size(); k++){
+            p_tmp = (Point3f)res.col(k);
+            pts_rot.push_back(Point2i(p_tmp.x, p_tmp.y));
+            if(p_tmp.x < min_v_x){min_v_x = p_tmp.x;}
+            if(p_tmp.x > max_v_x){max_v_x = p_tmp.x;}
+            if(p_tmp.y < min_v_y){min_v_y = p_tmp.y;}
+            if(p_tmp.y > max_v_y){max_v_y = p_tmp.y;}
+        }
+        //cout << "min x: " << min_v_x << " max x: " << max_v_x << endl;
+        //cout << "min y: " << min_v_y << " max y: " << max_v_y << endl;
+        
+        for(int k = 0; k < contours[i].size(); k++){
+            pts_rot[k].x += -min_v_x + 50;
+            pts_rot[k].y += -min_v_y + 50;
+        }
+        vector<vector<Point>> cont_all;
+        cont_all.push_back(pts_rot);
+        drawContours(img, cont_all, -1, 255);
+        imshow("cont", img);
+        waitKey(0);
+
+        pts_rot.clear();
+        res = res*4;
+        for(int k = 0; k < contours[i].size(); k++){
+            z_avg += res.at<float>(2,k);
+            p_tmp = (Point3f)res.col(k);
+            pts_rot.push_back(Point2i(p_tmp.x, p_tmp.y));
+        }
+        
+
+        z_avg /= contours[i].size();
+        minAreaRect(pts_rot).points(corners);
+        Size rect_s =  minAreaRect(pts_rot).size;
+
+        for(int l = 0; l < 4; l++){
+            p_tmp.x = corners[l].x;
+            p_tmp.y = corners[l].y;
+            p_tmp.z = z_avg;
+            corners_fin[l] = p_tmp;
+        }
+        for(int l = 0; l < 4; l++){
+            v_tmp = R.t()*(Vec3f)corners_fin[l];
+            corners_img[l] = p3f_to_p2i((Point3f)(v_tmp));
+        }
+
+        Point2i center(0,0);
+        for(int v = 0; v < 4; v++){
+            line(color, corners_img[v], corners_img[(v+1)%4], blue);
+            center.x += corners_img[v].x; 
+            center.y += corners_img[v].y; 
+        }
+        center.x /=4;
+        center.y /=4;
+        putText(color, "Size:" + to_string(rect_s.height) +" x " + to_string(rect_s.width), center, CV_FONT_HERSHEY_PLAIN,0.7, blue);
+    }
+    
+    imshow("fin_corner", img);
+    imshow("boxes", color);
+    //waitKey(0);
+    return color;
+}
+
+int main(int argc, char **argv) {
+
+  Mat image;
+  FileStorage fs;
+  if (argc < 2) {
+    fs.open("prob0001.xml", FileStorage::READ);
+  } else {
+    fs.open(argv[1], FileStorage::READ);
+  }
+  fs["depth"] >> image;
+  string m_name = "depth.txt";
+  string correct = "corrected.txt";
+  string uncorrect = "uncorrected.txt";
+  make_matlab_file(image, m_name);
+
+  //Mat grey_image = depth_to_grayscale(image, false);
+  Mat grey_image = depth_to_grayscale_offset(image);
+  //make_matlab_file8b(grey_image, uncorrect);
+  //auto start = high_resolution_clock::now();
+  //repair_img(grey_image, image);
+  //auto stop = high_resolution_clock::now();
+  //auto duration = duration_cast<microseconds>(stop - start);
+  //cout << "repair function time" << duration.count() << endl;
+  //make_matlab_file8b(grey_image, correct);
+
+  Mat modified; Normal p_norm;
+  tie(modified, p_norm) = get_plane_normal(image, 10);
+  //imshow("points in plane", modified);
+  //waitKey(0);
+  //auto start = high_resolution_clock::now();
+  Mat height = dispplay_height(image, p_norm);
+  //auto stop = high_resolution_clock::now();
+  //auto duration = duration_cast<microseconds>(stop - start);
+  //cout << "height function time" << duration.count() << endl;
+  Vec3f plane_normal;
+  eigen2cv(p_norm.vec, plane_normal);
+  //rotated_rect_bb(height, grey_image, image, plane_normal);
+  //start = high_resolution_clock::now();
+  get_bb_with_prespective(height, image, p_norm);
+  //stop = high_resolution_clock::now();
+  //duration = duration_cast<microseconds>(stop - start);
+  //cout << "svd_prespective function time" << duration.count() << endl;
+  //start = high_resolution_clock::now();
+  Mat color_box = get_layer_prespective_2nd_version(height, grey_image, image, plane_normal, p_norm.offset);
+  imshow("out", color_box);
+  //stop = high_resolution_clock::now();
+  //duration = duration_cast<microseconds>(stop - start);
+  //cout << "bounding_box function time" << duration.count() << endl;
+  ////std::string save_name(argv[1]);
+  ////save_name = save_name.substr(0,8);
+  ////save_name = "results/" + save_name + "_svd.jpg";
+  ////imwrite(save_name, height );
+
+  //imshow("simple depth img", grey_image);
+  //moveWindow("simple depth img", 900, 20);
+  //setMouseCallback("simple depth img", my_mouse_callback2, (void *)image.data);
+  
+  //Mat dst, color;
+  //string jmeno = argv[1];
+  //jmeno = "results/" + jmeno.substr(0,8) + "body_gnd.png";
+  //cvtColor(grey_image, color, cv::COLOR_GRAY2BGR);
+  //addWeighted(modified, 0.7, color, 0.5, 0.0, dst);
+  //imshow("points in plane", dst);
+  //imwrite(jmeno, dst);
+  //imshow("bounding boxes", height);
+  //moveWindow("bounding boxes", 30,20);
+  //moveWindow("points in plane", 920, 520);
+  //// imshow("only close pixels picture", grey_image2);
+  waitKey(0);
+
+  return 0;
+}
+
 Mat get_layer_prespective(Mat& img, Mat& orig, Mat& depth, Vec3f n)
 {
 
@@ -400,79 +600,6 @@ Mat get_layer_prespective(Mat& img, Mat& orig, Mat& depth, Vec3f n)
     //waitKey(0);
     return color;
 }
-
-int main(int argc, char **argv) {
-
-  Mat image;
-  FileStorage fs;
-  if (argc < 2) {
-    fs.open("prob0001.xml", FileStorage::READ);
-  } else {
-    fs.open(argv[1], FileStorage::READ);
-  }
-  fs["depth"] >> image;
-  string m_name = "depth.txt";
-  string correct = "corrected.txt";
-  string uncorrect = "uncorrected.txt";
-  make_matlab_file(image, m_name);
-
-  //Mat grey_image = depth_to_grayscale(image, false);
-  Mat grey_image = depth_to_grayscale_offset(image);
-  //make_matlab_file8b(grey_image, uncorrect);
-  //auto start = high_resolution_clock::now();
-  //repair_img(grey_image, image);
-  //auto stop = high_resolution_clock::now();
-  //auto duration = duration_cast<microseconds>(stop - start);
-  //cout << "repair function time" << duration.count() << endl;
-  //make_matlab_file8b(grey_image, correct);
-
-  Mat modified; Normal p_norm;
-  tie(modified, p_norm) = get_plane_normal(image, 10);
-  //imshow("points in plane", modified);
-  //waitKey(0);
-  //auto start = high_resolution_clock::now();
-  //Mat height = dispplay_height(image, p_norm);
-  //auto stop = high_resolution_clock::now();
-  //auto duration = duration_cast<microseconds>(stop - start);
-  //cout << "height function time" << duration.count() << endl;
-  //Vec3f plane_normal;
-  //eigen2cv(p_norm.vec, plane_normal);
-  //rotated_rect_bb(height, grey_image, image, plane_normal);
-  //start = high_resolution_clock::now();
-  //get_bb_with_prespective(height, image, p_norm);
-  //stop = high_resolution_clock::now();
-  //duration = duration_cast<microseconds>(stop - start);
-  //cout << "svd_prespective function time" << duration.count() << endl;
-  //start = high_resolution_clock::now();
-  //Mat color_box = get_layer_prespective(height, grey_image, image, plane_normal);
-  //stop = high_resolution_clock::now();
-  //duration = duration_cast<microseconds>(stop - start);
-  //cout << "bounding_box function time" << duration.count() << endl;
-  ////std::string save_name(argv[1]);
-  ////save_name = save_name.substr(0,8);
-  ////save_name = "results/" + save_name + "_svd.jpg";
-  ////imwrite(save_name, height );
-
-  //imshow("simple depth img", grey_image);
-  //moveWindow("simple depth img", 900, 20);
-  //setMouseCallback("simple depth img", my_mouse_callback2, (void *)image.data);
-  
-  Mat dst, color;
-  string jmeno = argv[1];
-  jmeno = "results/" + jmeno.substr(0,8) + "body_gnd.png";
-  cvtColor(grey_image, color, cv::COLOR_GRAY2BGR);
-  addWeighted(modified, 0.7, color, 0.5, 0.0, dst);
-  imshow("points in plane", dst);
-  imwrite(jmeno, dst);
-  //imshow("bounding boxes", height);
-  //moveWindow("bounding boxes", 30,20);
-  //moveWindow("points in plane", 920, 520);
-  //// imshow("only close pixels picture", grey_image2);
-  waitKey(0);
-
-  return 0;
-}
-
 void make_dot(Mat& img, Vec3b color, Coord c){
     Point2i t;
     for(int i = c.y -2; i < c.y + 2; i++){

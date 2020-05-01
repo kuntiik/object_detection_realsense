@@ -6,6 +6,8 @@
 \usepackage{textcomp}
 \usepackage{xfrac}
 \usepackage{algorithm,algorithmic}
+\usepackage{caption}
+\usepackage{subcaption}
 %\usepackage[unicode]{hyperref}
 \newcommand{\spc}[2]{$\mathbb{#1}^{#2}$}
 \newcommand{\minsp}[3]{$\mathbb{#1} \in \mathbb{#2}^{#3}$}
@@ -54,6 +56,32 @@ Podle \cite{james_w_angle_2014} je tato metoda nevhodná pro výpočet na počí
 \end{align}
 Výhoda funkce atan2 oproti arcus tangens je oštřené dělení nulou, ke ktrému může dojít při zaokrouhlování desetiných čísel. Navíc funkce vrací úhel v rozmezí $\left[ 0, 2\pi \right]$
 
+\section{Sobelův operátor pro detekci hran}
+\label{subsec:sobel}
+Hrana v obrazu může být také pozorována, jako prodká změna intenzity obrazu v daném místě. Rychlé změny se dají detekovat pomocí gradientu, který je pro spojitou funcki $f(x,y)$ v bodě $(x,y)$ vyjádřen následovně. 
+\begin{align}
+    \nabla f(x,y) =  \begin{bmatrix} \mathbf{G}_x & \mathbf{G}_y \end{bmatrix} = \begin{bmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \end{bmatrix} \label{eq:grad}
+\end{align}
+Velikost a směr gradientu se jsou určeny následovně.
+\begin{align}
+    \text{mag}(\nabla f) = ||\nabla f ||_2 = \sqrt[2]{\mathbf{G}_x ^2 + \mathbf{G}_y ^2} \label{eq:grad_mag} \\
+    \boldsymbol{\theta} = \text{arctan} (\frac{\mathbf{G}_y}{\mathbf{G}_x})
+\end{align}
+Parciální derivace musí být spočítané pro každý pixel $(x,y)$ obrazu \tl{A}. K tomuto se využívá Sobelových kernelů $\mathbf{K}_x$, $\mathbf{K}_y$. Tyto se konvolvují s obrazem a v každém bodě aproximují hodnotu obou parciálních derivací $g_x(x,y), g_y(x,y)$. Ze kterých se pak podle vztahu \ref{eq:grad} určí gradient.
+\begin{align}
+    \mathbf{K}_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 &2 \\ -1 & 0 & -1 \end{bmatrix} \quad \mathbf{K}_y = \begin{bmatrix} 1 & 2 & 1 \\ 0 & 0 & 0 \\ -1 & -2 & -1 \end{bmatrix} \\
+    g_x(x,y) = \sum_{k = -1}^1 \sum_{l = -1}^1 \mathbf{K}_x(k,l)\mathbf{A}(x+k, y+l) \\
+    g_y(x,y) = \sum_{k = -1}^1 \sum_{l = -1}^1 \mathbf{K}_y(k,l)\mathbf{A}(x+k, y+l) \\
+\end{align}
+Výpočet gradientu intenzity tímto způsobem je výpočetně relativně nenáročný. Pro další zrychlení výpočtu se používá aproximace magnitudy gradientu místo extatního výpočtu \ref{eq:grad_mag}. Nejjednodušší aproximací je 
+\begin{align}
+    \text{mag}(\nabla f) \approx ||\nabla f ||_1 = |\mathbf{G}_x| + |\mathbf{G}_y|  
+\end{align}
+tato dává sice velice nepřesný výsledek, ale pro aplikace, kde stačí hrubý odhad velikosti gradientu může značně snížit výpočetní dobu.
+
+\section{Hledání konvexního obalu množiny bodů}
+Je li dána množina $S$ obsahující $n$ bodů v euklidovském prostoru $\mathcal{E}^3$, popřípadě euklidovské ploše $\mathcal{E}^2$, pak konvexní obal množiny $S$ je nejmenší konvexní možina obsahující množinu $S$ \cite{chan1996optimal}.
+
 \section{Vlastní čísla a vektory}
 Pro čtvercovou matici \minsp{A}{R}{n\times n} a nenulový vektor \tl{v}\minsp{}{R}{n} a sklár $\lambda \in \mathbb{R}$ platí
 \begin{align}
@@ -80,12 +108,12 @@ Kamera zobrazuje body \tl{p} $\in \mathbb{E}^3$ na $\mathbf{p}_{o} \in \mathbb{E
     \begin{bmatrix} x \\ y \\ z \end{bmatrix} \mapsto \begin{bmatrix} \sfrac{fx}{z} \\ \sfrac{fx}{z} \end{bmatrix}
     \label{pinhole_eq}
 \end{align}
-což odpovídá bodu, kde přímka spojující centrum projekce a bod v prostoru, protne obrazovou rovinu (viz obrázek \ref{pinhole}). Ve vztahu \ref{pinhole_eq} jsme předpokládali, že počátek souřadného systému obrazu je v optickém středu. Většinou se však za počátek souřadnic volí levý horní roh obrazu. K zápisu využijeme homogenních souřadnic a dostaneme následující rovnici
+což odpovídá bodu, kde přímka spojující centrum projekce a bod v prostoru, protne obrazovou rovinu (viz obrázek \ref{pinhole}). Ve vztahu \ref{pinhole_eq} jsme předpokládali, že počátek souřadného systému obrazu je v optickém středu. Konvencí však je za počátek souřadnic zvolit levý horní roh obrazu. K zápisu využijeme homogenních souřadnic a dostaneme následující rovnici pro zobrazení z souřadného systému kamery do systému obrazu s počátkem v levém horním rohu obrazu
 \begin{align}
     \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} \mapsto \begin{bmatrix} fx + zc_x \\ fy + zc_y \\ z \end{bmatrix} = \begin{bmatrix} f & 0 & c_x & 0 \\ 0 & f & c_y & 0 \\ 0 & 0 & 1 &0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
-    \label{pinhole_homogenous}
+    \label{eq:pinhole_homogenous}
 \end{align}
-kde jako $c_x$ a $c_y$ jsme označili souřadnice optického středu. Označíme-li obecný bod v prostoru,který je popsán v souřadném systému kamer \tl{x}$_p$ a odpovídající bod v rovině obrazu \tl{x}, pak můžeme rovnici \ref{pinhole_homogenous} přepsat jako
+kde jako $c_x$ a $c_y$ jsme označili souřadnice optického středu. Označíme-li obecný bod v prostoru,který je popsán v souřadném systému kamer \tl{x}$_p$ a odpovídající bod v rovině obrazu \tl{x}, pak můžeme rovnici \ref{eq:pinhole_homogenous} přepsat jako
 \begin{align}
     \mathbf{x} = \mathbf{K}[\mathbf{I}\; |\; 0 ]\mathbf{x}_p \quad \mathbf{K} = \begin{bmatrix} f & 0 & c_x  \\ 0 & f & c_y  \\ 0 & 0 & 1  \end{bmatrix}
     \label{intrinstic}
@@ -113,7 +141,7 @@ Parametry $\mathbf{\tilde C}$ a \tl{R} se souhrně nazývají vnější parametr
 
 \section{Stereo kamera}
 \subsection{Výpočet vzdálenosti}
-Stereo kamera je tvořena dvěma nezávislými čočkami. Zpracováním obrazů jsme schopní získat informaci o hloubce každého bodu obrazu. Budeme uvažovat model stereo kamery, kde osy obou čoček jsem rovnoběžné (viz obrázek \ref{stereo_paralel}). Osy jsou od sebe ve vzdálenosti $b$, tomuto parametru se říka základní linie (baseline).Z podobnosti trojúhelníků plyne
+Stereo kamera je tvořena dvěma nezávislými čočkami. Zpracováním obrazů jsme schopní získat informaci o hloubce každého bodu obrazu. Budeme uvažovat model stereo kamery, kde osy obou čoček jsem rovnoběžné (viz obrázek \ref{stereo_paralel}). Osy jsou od sebe ve vzdálenosti $b$, tomuto parametru se říka báze (baseline). Z podobnosti trojúhelníků plyne
 \begin{align}
     \frac{z}{f} = \frac{x}{xl} \label{trojuh1} \\
     \frac{z}{f} = \frac{x - b}{xr} \label{trojuh2}
@@ -123,7 +151,7 @@ pokud z rovnice \ref{trojuh1} vyjádříme $x$ a dosadíme do rovnice \ref{troju
     z = \frac{fb}{xl - xr} = \frac{fb}{d} 
     \label{depth_stero}
 \end{align}
-Kde $xl$ a $xr$ jsou souřadnice bodu \tl{p} v levém a pravém obrazu stereokamery. Pro každý bod v levém (popřípadě pravém) obrazu je tedy potřeba najít odpovídající bod v obrazu pravém (tzv. stereo pár). Bez jakékoliv apriorní znalosti by to znamenalo pro každý pixel prohledat celý druhý obraz, tedy náročnost hledání $\mathcal{O}(wh)$.Pomocí epipolární geometrie můžeme hledání zúžit na přímku  a snížit tak náročnost hledání stero páru na $\mathcal{O}(w)$.
+Kde $xl$ a $xr$ jsou souřadnice bodu \tl{p} v levém a pravém obrazu stereokamery. Pro každý bod v levém (popřípadě pravém) obrazu je tedy potřeba najít odpovídající bod v obrazu pravém (tzv. stereo pár). Bez jakékoliv apriorní znalosti by to znamenalo pro každý pixel prohledat celý druhý obraz, tedy náročnost hledání $\mathcal{O}(wh)$, tj. plocha obrazu vyjádřená v pixelech. Pomocí epipolární geometrie můžeme hledání zúžit na přímku  a snížit tak náročnost hledání stero páru na $\mathcal{O}(w)$. \cite{brown2003advances_in_stereo}
 
 \subsection{Chyba výpočtu vzdálenosti}
 Chyba výpočtu vzdálenosti se podle \cite{keselman2017intel} určí derivací rovnice \ref{depth_stero} podle $d$.
@@ -136,7 +164,7 @@ Kde $\epsilon_z $ je chyba určení vzdálenosti bodu a $ \epsilon_d $ je chyba 
 
 \subsection{Epipolární geometrie}
 \label{Sec:epipolar}
-Epipolární geometrie se zabývá průnikem obrazových rovin a svazkem ploch, jejichž společná osa je báze. Uvažujme dvě dírkové kamery v obecném natočení, tedy jejich obrazové roviny nemusí být rovnoběžné (viz \ref{fig:epipolar}). Z dírkové modelu kamery plyne, že bod \tl{X} a optické středy kamer $C, C'$ jsou koplanární a tvoří rovinu $p$. V místě, kde tato rovina protíná rovinu obrazu se nachází epipolární přímka $l$. Hledáme-li stereo pár, pak pro známý bod \tl{x} (tj. projekce bodu \tl{X} do optické roviny levé kamery) musíme najít odpovídající bod \tl{x'}. Tento může ležet pouze na epipolární přímce $l'$. Přímka $l'$ je uřčna epipólem $e'$ a bodem $x'$. Epipól se nachází v místě, kde přímka spojující optickcká centra kamer protíná rrovinu obrazu. Bod $x'$ se určí jako 
+Epipolární geometrie se zabývá průnikem obrazových rovin se svazkem ploch, jejichž společná osa je báze. Uvažujme dvě dírkové kamery v obecném natočení, tedy jejich obrazové roviny nemusí být rovnoběžné (viz \ref{fig:epipolar}). Z dírkové modelu kamery plyne, že bod \tl{X} a optické středy kamer $C, C'$ jsou koplanární a tvoří rovinu $p$. V místě, kde tato rovina protíná rovinu obrazu se nachází epipolární přímka $l$. Hledáme-li stereo pár, pak pro známý bod \tl{x} (tj. projekce bodu \tl{X} do optické roviny levé kamery) musíme najít odpovídající bod \tl{x'}. Tento může ležet pouze na epipolární přímce $l'$. Přímka $l'$ je uřčna epipólem $e'$ a bodem $x'$. Epipól se nachází v místě, kde přímka spojující optickcká centra kamer protíná rrovinu obrazu. Bod $x'$ se určí jako 
 \begin{align}
     \mathbf{x'} = \mathbf{Hx}
 \end{align}
@@ -166,23 +194,25 @@ Metody užívané pro hledání stereo parů se dělí na metody plošné (area 
 \end{itemize}
 
 \subsection{Plošné metody}
-Využívají informaci z okolí pixelu. Tyto jsou porovnány se všemi možnými pozicemi v druhém obrazu a bod, jehož hodnota je nejblíže vzoru rvoří stereo pár. Mezi nejpoužívanější algoritmy patří.
+Využívají informaci z okolí pixelu. Tyto jsou porovnány se všemi přípustnými pozicemi v druhém obrazu a bod, jehož hodnota je nejblíže vzoru rvoří stereo pár. Mezi nejpoužívanější algoritmy patří.
 
 \subsubsection{Součet absolutních rozdílů}
-Je definována konstatní velikost okolí pixelu $\mathbf{x}(u,v)$, pro který se hledá stereo pár. Tato je následně porovnávána s body, kde se může korespondující pixel nacházet, tj. body které splnují námi požívaná omezení. Pro odpovídající bod \tl{x'} tedy platí následující vztah. 
+Je definována konstatní velikost okolí pixelu $\mathbf{x}(u,v)$, pro který se hledá stereo pár. Tato je následně porovnávána s body, kde se může korespondující pixel nacházet, tj. body které splnují námi používaná omezení. Pro odpovídající bod \tl{x'} tedy platí následující vztah. 
 \begin{align}
     \mathbf{x'} = \text{argmin}\left( \displaystyle\sum_i \displaystyle\sum_j |\mathbf{I}_l(u+i,v+j) - \mathbf{I}_r(u+i, v+j + d)| \right)
 \end{align}
 kde $\mathbf{I}(u,v)$ je intenzita příslušného pixelu, $d$ je posun okna ve druhém obrazu a součet probíha přes celé okno, tedy přes každé $i,j$. Vztah byl zjednodušen uvažováním horizontálních epipolárních přímek. To odpovídá konfiguraci kamery s rovnoběžnými optickými osami.
 
-Existuje spoustu podobných algoritmů, které pouze používají jinou metrickou funkci. Místo absolutní hodnoty například kvadrát rozdílu, nebo normalizovaný kvadrát rozdílu. Všechny tyto metody patří mezi nejpřesnější \cite{kuhl2005comparison}. 
+Existuje spoustu podobných algoritmů, které pouze používají jinou metrickou funkci. Místo absolutní hodnoty například kvadrát rozdílu, nebo normalizovaný kvadrát rozdílu. Jedná se o nejrychlejší algoritmy pro hledání stereo párů, přesto však dosahují vyských přesností \cite{kuhl2005comparison}. 
 
 \subsubsection{Cenzus}
 \label{Sec:cenzus}
-Tato metoda opět pracuje se definovanou maskou kolem pixelu, pro který hledá stero pár. Pixely, které se nachází v šabloně se přemění na vektor jedniček a nul, podle toho zda je hodnota intenzita větší, popřípadě menší než intenzita centrálního pixelu. Stejná transformace se provede i v pravém obrazu pro každý pixel, který může doplnit stereo pár. Vektory jsou následně porovnány a je vybrán ten, jehož vektor má nejmenší Hammingovu vzdálenost.
+Jedná se o metodu patřící do rodiny plošných metod, které před porovnáním hodnot pixelů provedou určitou transformaci obou obrazů, sem patří naříklad i transformace podle hodnoty (rank transform). Tato metoda opět pracuje se definovanou maskou kolem pixelu, pro který hledá stero pár. Pixely, které se nachází v šabloně se přemění na vektor jedniček a nul, podle toho zda je hodnota intenzita větší, popřípadě menší než intenzita centrálního pixelu. Stejná transformace se provede i v pravém obrazu pro každý pixel, který může doplnit stereo pár. Vektory jsou následně porovnány a je vybrán ten, jehož vektor má nejmenší Hammingovu vzdálenost. \cite{kuhl2005comparison, brown2003advances_in_stereo}
 
 \subsection{Porovnávání rysů}
-Pro každý obraz jsou vygenerovány důležité body. Tyto mohou být nepříklad hrany či rohy. Tyto jsou porovnány s analogicky vygenerovánými rysy v druhém obrazu. Využívá se algoritmů jako je například SIFT (Scale Invariant Feature Transform), SURF (Seeded-Up Robust Features) nebo BRIEF(Binary Robust Independent Elementary Features)
+Pro každý obraz jsou vygenerovány důležité body. Tyto mohou být nepříklad hrany či rohy. Tyto jsou porovnány s analogicky vygenerovánými rysy v druhém obrazu. Tento postup se často opakuje, kdy v každém dalším kroku je rozložen každý rys na několik menších, o kterých již máme apriorní znalost jejich přibližné polohy. Aby bylo možné sestavit obraz pouze z několika rysů je nutné provést časově náročné předzpracování obrazu za ůčelem najití vhodných rysů a po nalezení korespondujících rysů provést zpětnou rekonstrukci obrazu. \cite{brown2003advances_in_stereo}
+
+Pro porovnání rysů mezi levým a pravým obrazem se využívá algoritmů jako je například SIFT (Scale Invariant Feature Transform), SURF (Seeded-Up Robust Features) nebo BRIEF(Binary Robust Independent Elementary Features).
 
 \begin{figure}
     \centering
@@ -197,7 +227,7 @@ Pro každý obraz jsou vygenerovány důležité body. Tyto mohou být nepříkl
 
 %\section{Intel \textregistered Realsense\textsuperscript{TM} D435}
 \section{Intel Realsense D435}
-Intel\textregistered{} Realsense\textsuperscript{TM} D435 je širokoúhlá stereo kamera, která se skládá z RGB kamery, infračerveného (infra red )projektoru, a dvou infračervených kamer jejichž data zpracovává přímo v čipu kamery procesor. Výstupem z kamery je tedy barevný obraz (RGB) a vzdálenost jednotlivých pixelů (hloubková mapa). 
+Intel\textregistered{} Realsense\textsuperscript{TM} D435 je širokoúhlá stereo kamera, která se skládá z RGB kamery, infračerveného (infra red )projektoru, a dvou infračervených kamer jejichž data jsou zpracovává přímo v čipu kamery procesor. Výstupem z kamery je tedy barevný obraz (RGB) a vzdálenost jednotlivých pixelů neboli hloubková mapa. 
 
 \begin{figure}
     \centering
@@ -208,7 +238,7 @@ Intel\textregistered{} Realsense\textsuperscript{TM} D435 je širokoúhlá stere
 
     Dvě infračervené kamery jsou v konfiguraci s rovnoběžnými optickými osami ve vzdálenosti 50$\,mm$. Infračervený projektor promítá na scénu statický obrazec, který se nachází mimo viditelné spektrum a není tedy zachycen RGB kamerou. Tento obrazec slouží k najítí stereo párů, zejména pak u objektů s řídkou texturou.
 
-    Kamera je vybavena specializovaným procsorem Vision Processor D4 pro výpočet hloubkové mapy. Tento je schopen při rozlišení hloubkové kamery 848x480 zpracovávat až 90 snímků za sekundu (FPS) \cite{RealSense_datasheet}, toto je vykoupeno sníženou přesností \cite{keselman2017intel} a pro maximální přesnost je vhodné snížit frekvenci na 30 snímků za sekundu.  Procesor má stejně jako celá kamera velice nízký odběr. Celá kamera včetně IR projektor má odběr menší než jeden watt a je tedy vhodná pro mobilní aplikace, kde je velikost baterie a spotřeba energie omezujícím faktorem.
+    Kamera je vybavena specializovaným procsorem Vision Processor D4 pro výpočet hloubkové mapy. Tento je schopen při rozlišení hloubkové kamery 848x480 zpracovávat až 90 snímků za sekundu (FPS), toto je vykoupeno sníženou přesností \cite{keselman2017intel} a pro maximální přesnost je vhodné snížit frekvenci na 30 snímků za sekundu.  Procesor má stejně jako celá kamera velice nízký odběr. Celá kamera včetně IR projektoru má odběr menší než jeden watt a je tedy vhodná pro mobilní aplikace, kde je velikost baterie a spotřeba energie omezujícím faktorem. \cite{RealSense_datasheet}
 
     Pro hledání stereo párů je využit cenzus algoritmus popsaný v \ref{Sec:cenzus} s maskou velikosti $7 \times 7 $. Výsledky jsou následně ověřovány sadou filtrů, které měří důvěryhodnost shody. Podle nastaveného limitu pak pro tento pixel bud vygenerují záznam v hloubkové mapě, nebo pixel zůstane nevyplněn. Výsledky kamery pro různé hodnoty limitu jsou vidět v tabulce. 
 \begin{figure}
@@ -218,7 +248,7 @@ Intel\textregistered{} Realsense\textsuperscript{TM} D435 je širokoúhlá stere
     \label{fig:tablka_limity}
 \end{figure}
 
-Procesor kamery není schopen určit hloubku bodu, pokud se objekt nachází příliš blízko. Konkrétní hodnoty je možno vidět v tabulce \ref{Fig:minimalni_hloubka}. Maximální měřitelná vzdálenost je za ideálních podmínek až 40 metrů \cite{keselman2017intel}. S rostoucí vzdáleností se kamera chová podle rovnice \ref{error_stereo}, toto chvání není patrné, pokud kamera operuje s objekty, které se nachází na obou hranicích měřitelné vzdálenosti, viz
+Procesor kamery není schopen určit hloubku bodu, pokud se objekt nachází příliš blízko. Konkrétní hodnoty je možno vidět v tabulce \ref{Fig:minimalni_hloubka}. Maximální měřitelná vzdálenost je za ideálních podmínek až 40 metrů \cite{keselman2017intel}. S rostoucí vzdáleností se kamera chová podle rovnice \ref{error_stereo}, toto chvání není patrné, pokud kamera operuje s objekty, které se nachází na obou hranicích měřitelné vzdálenosti. Ilustrace výstupu kamery, pokud se objekt nachází ve vzdálenosti meší, než specifikuje tabulka \ref{fig:tablka_limity} je vidět na obrázku \ref{fig:rs_bad}.
 
 \begin{figure}
     \centering
@@ -227,7 +257,80 @@ Procesor kamery není schopen určit hloubku bodu, pokud se objekt nachází př
     \label{Fig:minimalni_hloubka}
 \end{figure}
 
-\section{Matody v detekci objektů}
+\begin{figure}
+\centering
+\begin{subfigure}{0.48\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{pictures/good_realsense.png}
+  \caption{Snímek bez výrazných výpadků dat hloubkové mapy}
+  \label{fig:rs_good}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{pictures/bad_realsense.png}
+  \caption{Snímek s chybějícími hloubkovými daty}
+  \label{fig:rs_bad}
+\end{subfigure}
+\caption{Výstupní data kamery Realsense, hloubková data byla převedena do odstínů šedé}
+\label{fig:realsense_pics}
+\end{figure}
+
+\section{Metody v detekci objektů z hloubkových dat}
+Existuje spostu růyných metod pro detekci objektů z hloubkových dat. Tyto se liší podle různorodosti detekovaných objektů, požadavkú na čas výpočtu, možnosti získání ténovacích dat nebo formátem vstupních dat. Obvyklím formátem je mračno bodů, neboli point cloud, což je nestrukturovaná množina bodů v trojrozměrném prostoru. Zejména v posledních letech s nástupem hloubkových kamer jako je například Microsoft Kinect, Asus Xtion nebo námi používaný Intel RealSense, se čím dál více používájí data ve formátu RGB-D obrazu, tento se dá pomocí vztahu \ref{eq:pinhole_homogenous} převést na point cloud. Výstupní data z hloubkové kamery bývají většinou oproti LIDARu méně přesné. Výhodami naopak jsou: Vysoká vzorkovací frekvence, velké množstvý výstupních bodů a cena.
+\subsection{Klasické metody}
+
+\subsubsection{Určení normálového vektoru plochy z nestrukturovaných dat}
+\label{subsec:nomrmal_est}
+Téměř všehny metody detekce z objektů se skládá z více kroků a jedním z nich většinou bývá určení normálového vektoru plochy. Obvykle se pak jedná o plochu reprezentující zem, popřípadě jinou podložku, popřípadě plochy reprezentující stěny místnosti. Přístupy k hledání ploch v obrazu se výrazně liší, uvedeme příklady některých z nich.
+
+\begin{itemize} 
+    \item Použití hrubé síly (brute force). Postupně jsou vyzkoušeny všechny možnosti, popřípadě část z nich a vybere se nejlépe vyhovující. Vužívá se zde zejména algoritmů jako je RANSAC, popřípadě jeho modifikace. Tato metoda je vhodná zejména pokud jsou data zatížena silným šumem, jelikož při správném počtu iterací téměř vždy vrátí správný výsledek, toto je však vykoupeno vysokou časovou náročností.\cite{RANSAC_plane,single_RGBD_reconstruction} Tato se dá snížit vhodný předzpracováním dat. Například segmentací na menší celky a určením plochy pouze pro tyto segmenty \cite{rusu2009close}
+    \item Výpočet normálového vektoru v každém bodě, kde je normálový vektor kolmý na plochu reprezentující okolí bodu, toto je tvořeno body nacházejícími se v okruhu o poloměru $r$ \cite{wang2015dominant} popřípadě $k$  nejbližšími body\cite{holz2011real,trevor2013efficient}. Poté je provedena segmentace pomocí metody rostoucích oblastí viz. sekce \ref{subsection:segmentation}. Výstupem jsou tedy skupiny bodů, které reprezentují jednotlivé plochy. V některých případech je ještě použit RANSAC na již nalezené segmenty, aby byly vyloučeny body, které leží mimo plochu přesto, že jejich normálový vektor dané ploše odpovídá \cite{lai2011large}.
+    \item Jsou nalezeny body, které patří do dané roviny, těmito je poté pomocí PCA proložena rovina \cite{zhang2016fast}. Tato metoda je náchylná na body ležící mimo rovinu (outliers), jelikož rovina je proložena body ve smyslu nejměnších čtverců a jediný bod ležící ve velké vzdálenosti od roviny může způsobit velké nepřesnosti.
+\end{itemize}
+
+\subsection{Segmentace obrazu}
+\label{subsection:segmentation}
+Důležitým krokem pro porozumění obrazu a pro detekci objektů je segmentace obrazů, tj. rozdělení vstupních dat na skupiny. Rozdělujeme dva typy segmentaco a to sémantickou, která sjednocuje body, které reprezentují danou skupinu objektů (například kostky ležící na zemi). Druhým typem je segmentace jednotlivých instancí, tedy skupina objektů je rozdělena na jednotlivé instance dané skupiny. 
+
+    Přístup k segmentaci se líší podle dané aplikce. Nejpoužívanějšími metodami jsou tyto:
+\begin{itemize}
+    \item Metoda prahování. Body $\mathbf{p}(x,y)$ jsou rozděleny do $m$ skupin podle toho, zda jejich vlastnost vlastnost $V$, což je například vzdálenost bodu od kamery nebo od plochy, dosahuje stanovené hodnoty $T_m$, tato můžeme být pevně určená, nebo se může dynamicky měnit a to v závislosti na okolních bodech, nebo v závislosti na pozici v obrazu, tj. $T(x,y)$. Pro prahovací metodu tedy platí následující vztah
+        \begin{align}
+\left\{ 
+        \begin{gathered}
+            \mathbf{p} \in m \text{ iff } V(\mathbf{p}) > T_m \\
+            \mathbf{p} \in n \text{ iff } V(\mathbf{p}) > T_n \\
+            \mathbf{p} \in \emptyset \text{ iff } V(\mathbf{p}) \leq T_1 
+        \end{gathered}
+\right\}
+        \end{align}
+ 
+    \item Metoda detekce hran. V obrazu jsou detekovány prudké změny pozorované vlastnosti $V$ bodů obrazu. Pokud první derivace bodu \tl{p} dosáhne dané hodnoty je \tl{p} registrován jako hrana. Povýpočtu bývá provedena úprava těchto hran, kterou je nepříklad filtrování, popřípadě spojení některých sousedních bodů. Nakonec jsou v obrazu identifikovány segmenty bodů, které jsou od zbytku odděleny hranou. K výpočtu se využívá například Sobelova oprátoru, který byl popsán v sekci \ref{subsec:sobel} nebo Cannyho operátor.
+
+    \item Metoda rostoucí oblasti. Tato se dělí na dva typy: S počátečním bodem (seed) a bez počátečního bodu. 
+
+    Je zvolen jeden, popřípadě několik počátečního bodů. K těmto se postupně přidávají sousední body, pokud splňují předem definované podmínky. Těmito je například maximální odchylka normálových vektorů bodů od normálového vektoru seedu, nebo rozdíl velikost některé souřadnice. Metoda bez počátečního bodu pak rozdělí všechny body do skupin, jejichž body spolu sousedí a zároveň mají podobné vlastnoti. Jedná se o algoritmus, který pracuje s konstatní časovou náročností, která odpovídá $\mathcal{O} (2n)$, kde $n$ je počet pixelů obrazu. 
+
+    \item Metoda rozdělovaní a slučování. Obraz je postupně rozdělen na části, které mají podobnou charakteristiku. Následně jsou seousední regiony, které jsou si podobné sloučeny do jedoho. Pro reprezentaci regionů se obvykle využívá quadtree.
+
+    Pokud $o$ je obraz a $V$ daná vlastnost jednotlivého bodu $p$ a skupina bodů má vlastnost $V$, pokud tuto má každý bod skupiny pak lze metodu rozdělování a slučování popsat následovně.\cite{segmentace_metody}
+    \begin{itemize}
+        \item Region $R_1$ je roven $o$
+        \item Pokud platí $V(R_i) = False$, pak je region rezdělen na několik menších
+        \item Pokud platí $V(R_i) = True$, pak je $R_i$ slučen se všemi sousedními regiony $R_j$, přičemž musí platit $V(R_i \cup R_j)$. Tento krok se opakuje dokud je možné některý region sloučit.
+    \end{itemize}         %jsou body s podobným normálovým vektorem spojeny do větších regionů a tyto reprezentují jednotlivé plochy, k tomuto se využívá různých modifikací CCA (Connected Component Analysis) algoritmu, tento existuje v následujících dvou konfiguracích. S počátečním bodem (seed), kdy je určen jeden bod (popřípadě nekolik boudů), ke kterému se postupně přidávají sousední body, pokud jejich normálový vektor má maximálně předem definouvanou odchylku a normálového vektoru seedu. Bez počátečního bodu, jedná se o algoritmus, který pracuje s konstatní časovou náročností, která odpovídá $\mathcal{O} (2n)$, kde $n$ je počet pixelů obrazu
+\item Metoda shlukování (clustering). Obraz je rozdělen do clustrů, kde body v každem clustru mají podobné vlastnosti, resp. jejich vlastnosti jsou si v rámci obraz nejbližší. Vlastnost v tomto případě bývá nejčastěji euklidovská vzdálenost. Mezi nejpopulárnější algoritmy patří tyto \footnote{Princip algoritmů bude vysvětlen při shlukování podle euklidovské vzdálenosti}
+    \begin{itemize}
+        \item K-means algoritmus. V tomto algoritmu je předem nutné znát počet clustrů $m$, do kterých budou body rozděleny. Následně se náhodně vybere $m$ bodů, které představují střed clustru. Následně je pro každý bod spočítána vzdálenost od jednotlivých středů. Bod je přiřazen do clustru, jehož vzdálenost středu je nejmenší. Následuje přepočítaní středů a postup se opakuje. Ve chvíli kdy již nedochází ke změnám mezi jednotlivými clustery je zaznamenán součet rozptylů bodů v rámci jednotlivých clusterů a celý proces počínaje náhodnou volbou středů se n-krát opakuje. Nakonec je vybrám výsledek, který má nejmenší roptyl.
+        \item Mean-shift (posun průměru) algoritmus. Je předem definován poloměr kruhového okna $r$. Následně je náhodně určeno (popřípadě podle předem definované masky rozmístěno) $n$ bodů \tl{p}. V každé iteraci se spočítá střed bodů $\mathbf{t}$, pro které platí $||\mathbf{p} - \mathbf{t}|| < r$ a tento naradí bod \tl{p}, tento postup se opakuje, dokud body konvergují. Výsledná poloha bodů $\mathbf{p}_i$ pak představuje sřed jednotlivých clustrů. 
+        \item DBSCAN (Density-Based Spatial Clustering of Applications with Noise) algoritmus. Všechny body obrazu jsou označeny jako nenavštívené. Náhodně je vybrán nenavštívený bod \tl{a} a pokud se v jeho okolí o velikosti $\epsilon$ nachází minimální předem zvolený počet bodů, pak je celé okolí bodu \tl{p} přídáno do clusteru a postup se opakuje pro přidané body. Pokud již nelze žadný další bod přidat zvolí se další nenavštívený bod a proces se opakuje pro další cluster. Toto probíhá dokud existují nanavštívené body. 
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Detekce objektů}
+
+
 \subsection{Určování normálového vektoru}
 Ve většině scén počitačového vidění lze pozrovat velké plochy, jakými jsou například stěny, či zem. Tyto jsou důležitým blokem pro většinu postupů detekce objektů. Například přesné určení směru podložky je nezbytné pro detekci objektů ležících na této podložce. Rozlišujeme dva časté postupy: Již známe body, které jsou součástí dané plochy, tj. již byla provedena segmentace obrazu, nebo 
 
@@ -245,8 +348,9 @@ Bylo navrženo a implementováno několik postupů. Tyto se dělí do dvou kateg
 
 \subsection{Segmentace obrazu}
 \subsubsection{Přístup založený na výšce}
-Tento postup vychází z předpokladu, že na zami se krom cihel nanachází jiné předměty. Scénu tedy tvorí pouze zem a na ní umístěné cihly, které mají předem známé rozměry. Začneme určením normálového vektoru roviny reprezentující zem, jelikož z jeho znalosti můžeme najít body ležící nad zemí, tj. body představující cihly. 
-Vytvoříme mřížku bodů, které jsou v místech, kde předpokládáme přesný výstup kamery. U těchto ověříme, zda pro ně byla kameoru vygenerována hloubka, dále ověřme, zda bod leží v maximální vzdálenosti 4\,, jelikož podle \cite{} a (ref to realsense) chyba stereo kamery nad tuto vdálenost začíná být markantní a správné určení normálového vektoru je zásadní pro všechny ostatní kroky. Množinu bodů $M = \mathbf{a}_1 \dotsc \mathbf{a}_m$ které splňují výše uvedná kritéria proložíme rovinou pomocí PCA algoritmu a dostaneme tedy normálový vektor \tl{n} plochy $p$ minimalizující kvadrát vzdáleností od bodů tato je posunuta mimo počátek o $d$.
+\label{subsec:height}
+Tento postup vychází z předpokladu, že na zemi se krom cihel nanachází jiné předměty. Scénu tedy tvoří pouze zem a na ní umístěné cihly, které mají předem známé rozměry. Začneme určením normálového vektoru roviny reprezentující zem, jelikož z jeho znalosti můžeme najít body ležící nad zemí, tj. body představující cihly. 
+Vytvoříme mřížku bodů, které jsou v místech, kde předpokládáme přesný výstup kamery. U těchto ověříme, zda pro ně byla kameoru vygenerována hloubka, dále ověřme, zda bod leží v maximální vzdálenosti 4\,$m$ jelikož podle \cite{keselman2017intel}  chyba stereo kamery RealSense D435 nad tuto vdálenost začíná být markantní a správné určení normálového vektoru je zásadní pro všechny ostatní kroky. Množinu bodů $M = \mathbf{a}_1 \dotsc \mathbf{a}_m$ které splňují výše uvedná kritéria proložíme rovinou pomocí PCA algoritmu a dostaneme tedy normálový vektor \tl{n} plochy $p$ minimalizující kvadrát vzdáleností od bodů tato je posunuta mimo počátek o $d$.
 \begin{align}
     \mathbf{\bar{a}} = \frac{1}{m}\left( \mathbf{a}_1 \dotsc \mathbf{a}_m \right) \\
     d = \mathbf{n} \cdot \mathbf{\bar{a}} = \mathbf{n}^T \mathbf{\bar{a}} \\
@@ -257,7 +361,7 @@ Každý bod \tl{a} je buď součástí země, nebo součastí cihly. Je-li v mno
     n_1a_1 + n_2a_2 + n_3a_3 + \epsilon > d \; \rightarrow \; \mathbf{a} \in C  \\
     n_1a_1 + n_2a_2 + n_3a_3 + \epsilon \leq d \; \rightarrow \; \mathbf{a} \in G  
 \end{align}
-Kde $\epsilon$ je experimentálně určená hodnota, která oštří případy, kde $k = m$, tj. všechny body reprezentují zem. V tomto případě čast bodů bude ležet na plochou $p$. To jest dáno šumem dat a nepřesností kamery. Přidáním parametru $\epsilon$ je zajištěno, že každý bod reprezentující zem bude registrován.
+Kde $\epsilon$ je experimentálně určená hodnota, která ošetří případy, kde $k = m$, tj. všechny body reprezentují zem. V tomto případě čast bodů bude ležet nad plochou $p$. To jest dáno šumem dat a nepřesností kamery. Přidáním parametru $\epsilon$ je zajištěno, že každý bod reprezentující zem bude registrován i při zašuměných datech.
 
 Po výběru bodů z mřížky podle výše uvedených kriterií dostaneme $k$ bodů, které reprezentují zem a nacházejí se v místech, kde je přesnost kamery v rámci jejich možností nejvyšší. Tyto body by se daly znovu proložit plochou a dostat tak aproximaci natočení země pomocí normálového vektoru \tl{n}. Vzhledem k důležitosti přesnosti určení \tl{n} získáme další body reprezentující zem pomocí algoritmu \ref{alg:floodfill}. Tyto pody opět pomocí PCA proložíme přímkou a dostaneme dobrou aproximaci normálového vektoru země. Na obrázku je vidět výsledek algoritmu \ref{alg:floodfill}.
     
@@ -307,7 +411,26 @@ Nyní se vypočítá výška každého bodu nad rovinou a podle této hodnoty se
     \label{fig:height_map}
 \end{figure}
 
-\subsubsection{Přístup založený na derivaci}
+\subsubsection{Přístup založený na změně výšky}
+Velice populární postup při segmentaci obrazu je založena na normálovém vektoru, tento je vypočten pro každý bod obrazu a následně jsou body, jejiž normálový vektor má podobný směr, popřípadě i velikost, sloučeny do větších celků. V našem případe je vrchní stěna cihly parelelní se zemí a má tedy stejný normálový vektor. Nachází se však v jiné výšce. Pomočí výpočtu gradientu, který budeme realizovat pomocí Sobelova operátoru aplikovaného na výšku bodů, tedy spočítáme derivaci výšky, tato by měla být nejvyšší v oblasti přechodu země - cihla. Následně pak sloučíme body s hodnotou gradientu výšky, která si liší v rámci skupiny maximálně o $\delta$. K tomu bylo využito upraveného CCL (Connected-component labeling) algoritmu. 
+
+Tato metoda při správném odladění parametru $\delta$ funguje velice přesně. Problémem je však robustnost. Hodnoty parametru $\delta$ fungující na cihly v blízkosti kamery, nedtekují cihly ve vzdálenosti řadově 2\,$m$ a více a naopak. Toto je způsobeno jednak šumem kamery, který podle rovnice \ref{error_stereo} roste kvadraticky a zejména pak zkreslením vzdálenější hrany cihly kamerou, viz. obrázek \ref{fig:point_cloud_grad}. Kamera zde špatně nachází stereo páry a generuje mračna bodů, které ve skutečnosti neexistují. Tyto zmírňují přechod cihla-zem a snižují tak hodnotu gradientu. Toto chování je dobře vidět na obrázku \ref{fig:sobel_segment}.
+\begin{figure}
+    \centering
+    \includegraphics[width = \linewidth]{pictures/pc_crop.png}
+    \caption{Výstup kamery - mračno bodů zobrazující skupinu cihel. V pravé části je vidět zkreslení hrany způsobující problém při segmentaci}
+    \label{fig:point_cloud_grad}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = \linewidth]{pictures/obr10_grad.png}
+    \caption{Výsledek segmentace obrazu podle velikosti derivace výšky.}
+    \label{fig:sobel_segment}
+\end{figure}
+
+\subsection{Detekce objektů ze segmentovaného obrazu}
+Jako při segmentaci obrazu, tak i zde bylo vyzkoušeno několik algoritmů. Některé z nich byly nastaveny na detekci za zjednodušujících podmínek a nabízí tak nižší výpočetní náročnost při stejné přesnosti detekce. Vstupem všech prezentovaných algoritmů bude segmentovaný obraz jako je například obrázek \ref{fig:height_map}, pro tuto segmentaci jsme využili algoritmus \ref{subsec:height}.
 
 
 

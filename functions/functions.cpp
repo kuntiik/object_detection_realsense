@@ -157,6 +157,7 @@ Normal find_normal(Img_point *in_plane, int num_points) {
     plane.col(i) << ((in_plane[i].x - m_cx) * in_plane[i].z / m_fx),
         ((in_plane[i].y - m_cy) * in_plane[i].z / m_fy), in_plane[i].z;
   }
+  cout << in_plane[5].x << " " << in_plane[5].z << endl;
   Eigen::Matrix<float, 3, 1> mean = plane.rowwise().mean();
   Eigen::Matrix3Xf linear = plane.colwise() - mean;
   int settings = Eigen::ComputeFullU;
