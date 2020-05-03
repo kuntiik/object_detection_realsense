@@ -537,6 +537,15 @@ INPUT ./pictures/pc_crop.png
 INPUT pictures/obr10_grad.png
 INPUT ./pictures/obr10_grad.png
 INPUT ./pictures/obr10_grad.png
+INPUT pictures/detekce_bb.png
+INPUT ./pictures/detekce_bb.png
+INPUT ./pictures/detekce_bb.png
+INPUT pictures/ransac_rect_fit1.png
+INPUT ./pictures/ransac_rect_fit1.png
+INPUT ./pictures/ransac_rect_fit1.png
+INPUT pictures/crop_ransac_rot.png
+INPUT ./pictures/crop_ransac_rot.png
+INPUT ./pictures/crop_ransac_rot.png
 INPUT bakalarska_prace.bbl
 INPUT bakalarska_prace.bbl
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri10.tfm

@@ -87,6 +87,13 @@ Radu~Bogdan Rusu, Nico Blodow, Zoltan~Csaba Marton, and Michael Beetz.
 \newblock In {\em 2009 IEEE/RSJ International Conference on Intelligent Robots
   and Systems}, pages 1--6. IEEE, 2009.
 
+\bibitem{suzuki1985topological}
+Satoshi Suzuki et~al.
+\newblock Topological structural analysis of digitized binary images by border
+  following.
+\newblock {\em Computer vision, graphics, and image processing}, 30(1):32--46,
+  1985.
+
 \bibitem{toussaint1984complexity}
 Godfried~T Toussaint.
 \newblock Complexity, convexity, and unimodality.

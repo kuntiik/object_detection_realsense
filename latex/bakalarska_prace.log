@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.16)  1 MAY 2020 23:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.16)  4 MAY 2020 00:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1732,7 +1732,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<ctu_logo_black.pdf, id=131, 366.36874pt x 279.0425pt>
+<ctu_logo_black.pdf, id=151, 366.36874pt x 279.0425pt>
 File: ctu_logo_black.pdf Graphic file (type pdf)
 <use ctu_logo_black.pdf>
 Package pdftex.def Info: ctu_logo_black.pdf  used on input line 27.
@@ -1896,111 +1896,132 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 77.
  [2] [3] [4]
-<pictures/rotating_calipers.png, id=307, 347.2975pt x 390.45876pt>
+<pictures/rotating_calipers.png, id=339, 347.2975pt x 390.45876pt>
 File: pictures/rotating_calipers.png Graphic file (type png)
 <use pictures/rotating_calipers.png>
-Package pdftex.def Info: pictures/rotating_calipers.png  used on input line 125.
+Package pdftex.def Info: pictures/rotating_calipers.png  used on input line 126.
 (pdftex.def)             Requested size: 254.09889pt x 285.68788pt.
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 141.
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 133.
  [5 <./pictures/rotating_calipers.png>] [6]
 Kapitola 2.
 [7
 
 ]
-<pictures/dirkovymodel_nakres.png, id=340, 567.11874pt x 157.58875pt>
+<pictures/dirkovymodel_nakres.png, id=372, 567.11874pt x 157.58875pt>
 File: pictures/dirkovymodel_nakres.png Graphic file (type png)
 <use pictures/dirkovymodel_nakres.png>
-Package pdftex.def Info: pictures/dirkovymodel_nakres.png  used on input line 187.
+Package pdftex.def Info: pictures/dirkovymodel_nakres.png  used on input line 200.
 (pdftex.def)             Requested size: 290.40111pt x 80.69861pt.
  [8 <./pictures/dirkovymodel_nakres.png>]
-<pictures/stereo_sketch.png, id=361, 832.10875pt x 349.305pt>
+<pictures/stereo_sketch.png, id=393, 832.10875pt x 349.305pt>
 File: pictures/stereo_sketch.png Graphic file (type png)
 <use pictures/stereo_sketch.png>
-Package pdftex.def Info: pictures/stereo_sketch.png  used on input line 233.
+Package pdftex.def Info: pictures/stereo_sketch.png  used on input line 246.
 (pdftex.def)             Requested size: 290.40111pt x 121.9068pt.
  [9] [10 <./pictures/stereo_sketch.png>]
-<pictures/epipolar.png, id=387, 629.35126pt x 324.21124pt>
+<pictures/epipolar.png, id=419, 629.35126pt x 324.21124pt>
 File: pictures/epipolar.png Graphic file (type png)
 <use pictures/epipolar.png>
-Package pdftex.def Info: pictures/epipolar.png  used on input line 269.
+Package pdftex.def Info: pictures/epipolar.png  used on input line 283.
 (pdftex.def)             Requested size: 290.40111pt x 149.59904pt.
-<pictures/realsense_kamera.png, id=388, 655.44875pt x 185.69376pt>
+<pictures/realsense_kamera.png, id=420, 655.44875pt x 185.69376pt>
 File: pictures/realsense_kamera.png Graphic file (type png)
 <use pictures/realsense_kamera.png>
-Package pdftex.def Info: pictures/realsense_kamera.png  used on input line 284.
+Package pdftex.def Info: pictures/realsense_kamera.png  used on input line 298.
 (pdftex.def)             Requested size: 290.40111pt x 82.27219pt.
  [11]
-<pictures/realsense_threshold.png, id=400, 302.12875pt x 94.3525pt>
+<pictures/realsense_threshold.png, id=434, 302.12875pt x 94.3525pt>
 File: pictures/realsense_threshold.png Graphic file (type png)
 <use pictures/realsense_threshold.png>
-Package pdftex.def Info: pictures/realsense_threshold.png  used on input line 296.
+Package pdftex.def Info: pictures/realsense_threshold.png  used on input line 312.
 (pdftex.def)             Requested size: 290.40111pt x 90.68964pt.
-<pictures/minimalni_vzdalenost.png, id=408, 536.0025pt x 199.74625pt>
+ [12 <./pictures/epipolar.png> <./pictures/realsense_kamera.png>]
+<pictures/minimalni_vzdalenost.png, id=452, 536.0025pt x 199.74625pt>
 File: pictures/minimalni_vzdalenost.png Graphic file (type png)
 <use pictures/minimalni_vzdalenost.png>
-Package pdftex.def Info: pictures/minimalni_vzdalenost.png  used on input line 305.
+Package pdftex.def Info: pictures/minimalni_vzdalenost.png  used on input line 321.
 (pdftex.def)             Requested size: 290.40111pt x 108.21796pt.
-<pictures/good_realsense.png, id=411, 621.32124pt x 475.7775pt>
+<pictures/good_realsense.png, id=455, 621.32124pt x 475.7775pt>
 File: pictures/good_realsense.png Graphic file (type png)
 <use pictures/good_realsense.png>
-Package pdftex.def Info: pictures/good_realsense.png  used on input line 314.
+Package pdftex.def Info: pictures/good_realsense.png  used on input line 330.
 (pdftex.def)             Requested size: 156.81354pt x 120.0766pt.
-<pictures/bad_realsense.png, id=412, 849.1725pt x 477.785pt>
+<pictures/bad_realsense.png, id=456, 849.1725pt x 477.785pt>
 File: pictures/bad_realsense.png Graphic file (type png)
 <use pictures/bad_realsense.png>
-Package pdftex.def Info: pictures/bad_realsense.png  used on input line 320.
+Package pdftex.def Info: pictures/bad_realsense.png  used on input line 336.
 (pdftex.def)             Requested size: 160.0837pt x 90.06563pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12 <./pictures/epipolar.png> <./pictures/realsense_kamera.png>] [13 <./pictures/realsense_threshold.png> <./pictures/minimalni_vzdalenost.png>] [14 <./pictures/good_realsense.png> <./pictures/bad_realsense.png>] [15] [16]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 409.
-<pictures/prob0001body_gnd.png, id=476, 851.18pt x 481.8pt>
+ [13 <./pictures/realsense_threshold.png> <./pictures/minimalni_vzdalenost.png>] [14 <./pictures/good_realsense.png> <./pictures/bad_realsense.png>] [15] [16]
+Underfull \vbox (badness 2922) has occurred while \output is active []
+
+ [17]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 436.
+<pictures/prob0001body_gnd.png, id=520, 851.18pt x 481.8pt>
 File: pictures/prob0001body_gnd.png Graphic file (type png)
 <use pictures/prob0001body_gnd.png>
-Package pdftex.def Info: pictures/prob0001body_gnd.png  used on input line 439.
+Package pdftex.def Info: pictures/prob0001body_gnd.png  used on input line 466.
 (pdftex.def)             Requested size: 363.0pt x 205.47173pt.
-<pictures/original_vrstva2_pic1.jpg, id=480, 851.18pt x 481.8pt>
+<pictures/original_vrstva2_pic1.jpg, id=524, 851.18pt x 481.8pt>
 File: pictures/original_vrstva2_pic1.jpg Graphic file (type jpg)
 <use pictures/original_vrstva2_pic1.jpg>
-Package pdftex.def Info: pictures/original_vrstva2_pic1.jpg  used on input line 448.
+Package pdftex.def Info: pictures/original_vrstva2_pic1.jpg  used on input line 475.
 (pdftex.def)             Requested size: 363.0pt x 205.47173pt.
- [17]
-<pictures/pc_crop.png, id=496, 1839.87375pt x 867.24pt>
+ [18]
+<pictures/pc_crop.png, id=543, 1839.87375pt x 867.24pt>
 File: pictures/pc_crop.png Graphic file (type png)
 <use pictures/pc_crop.png>
-Package pdftex.def Info: pictures/pc_crop.png  used on input line 459.
+Package pdftex.def Info: pictures/pc_crop.png  used on input line 489.
 (pdftex.def)             Requested size: 363.0pt x 171.10269pt.
-<pictures/obr10_grad.png, id=497, 851.18pt x 481.8pt>
+<pictures/obr10_grad.png, id=544, 851.18pt x 481.8pt>
 File: pictures/obr10_grad.png Graphic file (type png)
 <use pictures/obr10_grad.png>
-Package pdftex.def Info: pictures/obr10_grad.png  used on input line 466.
+Package pdftex.def Info: pictures/obr10_grad.png  used on input line 496.
 (pdftex.def)             Requested size: 363.0pt x 205.47173pt.
- [18] (./bakalarska_prace.bbl [19 <./pictures/prob0001body_gnd.png (PNG copy)>] [20 <./pictures/original_vrstva2_pic1.jpg> <./pictures/pc_crop.png>] [21 <./pictures/obr10_grad.png (PNG copy)>] [22
+ [19] [20 <./pictures/prob0001body_gnd.png (PNG copy)>]
+<pictures/detekce_bb.png, id=594, 850.17625pt x 479.7925pt>
+File: pictures/detekce_bb.png Graphic file (type png)
+<use pictures/detekce_bb.png>
+Package pdftex.def Info: pictures/detekce_bb.png  used on input line 525.
+(pdftex.def)             Requested size: 254.09889pt x 143.3971pt.
+ [21 <./pictures/original_vrstva2_pic1.jpg>]
+<pictures/ransac_rect_fit1.png, id=605, 798.985pt x 598.235pt>
+File: pictures/ransac_rect_fit1.png Graphic file (type png)
+<use pictures/ransac_rect_fit1.png>
+Package pdftex.def Info: pictures/ransac_rect_fit1.png  used on input line 549.
+(pdftex.def)             Requested size: 363.0pt x 271.7957pt.
+<pictures/crop_ransac_rot.png, id=606, 784.9325pt x 188.705pt>
+File: pictures/crop_ransac_rot.png Graphic file (type png)
+<use pictures/crop_ransac_rot.png>
+Package pdftex.def Info: pictures/crop_ransac_rot.png  used on input line 556.
+(pdftex.def)             Requested size: 363.0pt x 87.26892pt.
+ (./bakalarska_prace.bbl [22 <./pictures/pc_crop.png>] [23 <./pictures/obr10_grad.png (PNG copy)> <./pictures/detekce_bb.png>] [24 <./pictures/ransac_rect_fit1.png> <./pictures/crop_ransac_rot.png>] [25
 
-] [23]) [24]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 483.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 483.
+]) [26]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 572.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 572.
  (./bakalarska_prace.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 483.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 483.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 572.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 572.
 Package rerunfilecheck Info: File `bakalarska_prace.out' has not changed.
-(rerunfilecheck)             Checksum: DA1AE1650437E763D7EA7FEF98028C30;5270.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 483.
+(rerunfilecheck)             Checksum: 4068642DA0742DA07E0590B0E2E132A7;6417.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 572.
  ) 
 Here is how much of TeX's memory you used:
- 35978 strings out of 494816
- 663733 string characters out of 6177863
- 738034 words of memory out of 5000000
- 38381 multiletter control sequences out of 15000+600000
- 727824 words of font info for 236 fonts, out of 8000000 for 9000
+ 36085 strings out of 494816
+ 665751 string characters out of 6177863
+ 743835 words of memory out of 5000000
+ 38449 multiletter control sequences out of 15000+600000
+ 728322 words of font info for 242 fonts, out of 8000000 for 9000
  69 hyphenation exceptions out of 8191
- 62i,25n,80p,10357b,982s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,25n,80p,10357b,986s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on bakalarska_prace.pdf (30 pages, 1381119 bytes).
+Output written on bakalarska_prace.pdf (32 pages, 1474621 bytes).
 PDF statistics:
- 663 PDF objects out of 1000 (max. 8388607)
- 578 compressed objects within 6 object streams
- 176 named destinations out of 1000 (max. 500000)
- 46411 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 750 PDF objects out of 1000 (max. 8388607)
+ 657 compressed objects within 7 object streams
+ 200 named destinations out of 1000 (max. 500000)
+ 46466 words of extra memory for PDF output out of 51595 (max. 10000000)
 
